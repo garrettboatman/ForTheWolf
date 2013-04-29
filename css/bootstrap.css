@@ -7,6 +7,92 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+ 
+#header_wrapper{height: 520px;}
+#header-inner{height: 300px;}
+#search-wrapper, #search-inner{width:100%; max-width: 600px;}
+#search-inner{height: 100px;}
+
+/* Custom CSS (http://www.garrettboatman.com/) */
+
+input:focus, textarea:focus, select:focus{
+	outline:0;
+    outline:none;
+}
+
+input::-webkit-input-placeholder {color: #d2d2d2;}
+input:-moz-placeholder { /* Firefox 18- */color: #d2d2d2; }
+input::-moz-placeholder {  /* Firefox 19+ */color: #d2d2d2;  }
+input:-ms-input-placeholder {  color: #d2d2d2;  }
+
+html, body{
+	font-family: 'DINMittelschriftRegular';
+	color: #686868;
+	font-size: 20px;
+	font-weight: normal;
+}
+
+#header_wrapper{
+	width: 100%;
+	background-color: #d0d1d6;
+	background-image: url('../img/jakeamir-bg.png');
+	background-size: 900px;
+	background-position: center bottom;
+	background-repeat: no-repeat;
+	position: relative;
+	-moz-box-shadow: inset -3px -4px 5px rgba(189,189,189,.17);
+	-webkit-box-shadow: inset -3px -4px 5px rgba(189,189,189,.17);
+	box-shadow: inset -3px -4px 5px rgba(189,189,189,.17);
+
+}
+
+#header-inner{
+	width: 100%;
+	background-image: url('../img/site-title.png');
+	background-position: center top;
+	background-size: 3000px;
+	background-repeat: no-repeat;
+	position: absolute;
+	bottom: 0;
+}
+
+#search-wrapper{
+	margin: 0 auto;
+}
+
+#search-inner{
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
+#search-inner form{width: 100%;
+	text-align: center;
+}
+
+#search-field{
+	width: 100%;
+	max-width: 500px;
+	line-height: 37px;
+	color: #636363;
+	padding: 10px 80px 12px 20px;
+	font-family: 'BebasRegular';
+	font-size: 30px;
+	border: 1px solid rgba(203,203,203,.19);
+	-moz-border-radius: 31px;
+	-webkit-border-radius: 31px;
+	border-radius: 31px;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	background-color: #fff;
+	-moz-box-shadow: 1px 1px 3px rgba(0,0,0,.27);
+	-webkit-box-shadow: 1px 1px 3px rgba(0,0,0,.27);
+	box-shadow: 1px 1px 3px rgba(0,0,0,.27);
+}
+
+/* End Custom Css */
+
 .clearfix {
   *zoom: 1;
 }

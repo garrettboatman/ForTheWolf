@@ -18,6 +18,15 @@
  * ========================================================== */
 
 
+
+
+
+  /* CUSTOM JS (http://www.garrettboatman.com/)
+   * ======================================================= */
+
+   document.addEventListener("touchstart", function(){}, true);
+
+
 !function ($) {
 
   "use strict"; // jshint ;_;
