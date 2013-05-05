@@ -23,3 +23,72 @@
          url('dinmittelschrift-regular.svg#DINMittelschriftRegular') format('svg');
 }
 
+@font-face {
+	font-family: 'bc-icons';
+	src:url('fonts/bc-icons.eot');
+	src:url('fonts/bc-icons.eot?#iefix') format('embedded-opentype'),
+		url('fonts/bc-icons.woff') format('woff'),
+		url('fonts/bc-icons.ttf') format('truetype'),
+		url('fonts/bc-icons.svg#bc-icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'bc-icons';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="your-class-prefix"] {
+*/
+.calendar, .reddit_icon, .script-icon, .clock-icon, .dropdown_arrow, .play, .twitter, .facebook, .tumblr, .podcast {
+	font-family: 'bc-icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.calendar:before {
+	content: "\f073";
+}
+.reddit_icon:before {
+	content: "\e002";
+}
+.script-icon:before {
+	content: "\e003";
+}
+.clock-icon:before {
+	content: "\e004";
+}
+.dropdown_arrow:before {
+	content: "\e005";
+}
+.play:before {
+	content: "\e006";
+}
+.twitter:before {
+	content: "\e007";
+}
+.facebook:before {
+	content: "\e008";
+}
+.tumblr:before {
+	content: "\e00a";
+}
+.podcast:before {
+	content: "\e00c";
+}
