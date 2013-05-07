@@ -72,6 +72,7 @@ body{
 	width: 100%;
 	line-height: 37px;
 	font-family: 'BebasRegular';
+	overflow: visible;
 	word-spacing: 5px;
 	color: #636363;
 	padding: 10px 80px 12px 20px;
@@ -161,6 +162,8 @@ input:-ms-input-placeholder {  color: #d2d2d2;  }
 	-o-transition: .2s; /* Opera */
 }
 
+
+
 .episode-item-content{
 	height: 0;
 	overflow: hidden;
@@ -177,6 +180,13 @@ input:-ms-input-placeholder {  color: #d2d2d2;  }
 .closed .episode-item-content{
 	height: 0 !important;
 }
+
+.opened .episode-item-content{
+	height: auto !important;
+}
+
+
+
 
 .arrow-wrapper{
 	-webkit-transform: rotate(-180deg);
@@ -233,6 +243,7 @@ table.episode-header-inner{
 .header-inner-dropdown{
 	font-size: 40px;
 	width: 50px;
+	padding-right: 5px;
 }
 
 .arrow-wrapper{
@@ -244,13 +255,20 @@ table.episode-header-inner{
 	color: #d4d4d4;
 }
 
+.episode-details tr td{
+	font-size: 18px;
+}
+
 .episode-details tr td:first-child{
-	font-size: 35px;
-	width: 35px;
+	font-size: 40px;
+	width: 30px;
 	line-height: 30px;
 	text-align: center;
-	padding: 10px 13px 10px 3px;
+	padding: 8px 5px 8px 1px;
+	color: #d4d4d4;
 }
+
+
 
 .reddit_icon{
 	font-size: 40px;
@@ -296,6 +314,11 @@ a.button:hover, .script-button:hover{
 	overflow: hidden;
 }
 
+ .episode-details-wrapper{
+	 position: relative;
+	 height: 320px;
+}
+
 .episode-video iframe{
 	position: absolute;
 	top: 0;
@@ -316,6 +339,8 @@ button.script-button{
 	font-size: 25px;
 	text-shadow: 1px 2px 0 rgba(0,0,0,.2);
 	margin: 15px 0px;
+	position: absolute;
+	bottom: 10px;
 }
 
 .show-script, .scripted .hide-script{
@@ -333,6 +358,7 @@ button.script-button{
 .episode-script{
 	font-family: "Courier New", Courier, monospace;
 	display: none;
+	margin-top: 10px;
 	font-size: 14px;
 	color: #6f6f6f;
 	border: 1px solid #e4e4e4;
@@ -355,6 +381,10 @@ button.script-button{
 
 .episode-details tr{
 
+}
+
+*:active{
+	-webkit-tap-highlight-color: rgba(0,0,0,0) !important;
 }
 
 /* Footer */
@@ -1377,7 +1407,60 @@ button.close {
 .visible-desktop {
   display: inherit !important;
 }
+
+/* iPad & Tablet CSS */
+
 @media (min-width: 768px) and (max-width: 979px) {
+  
+  .episode-item-header{
+	  padding: 5px 5px 10px 5px;
+  }
+  
+  .header-inner-calendar{
+	  width: 30px;
+  }
+  
+  .header-inner-calendar .calendar{
+	  font-size: 30px;
+  }
+  
+  .arrow-wrapper{
+	  width: 30px;
+	  height: 30px;
+  }
+  
+  .header-inner-dropdown{
+	  font-size: 30px;
+	  width: 30px;
+  }
+  
+  
+  .header-inner-date{
+	  font-size: 16px;
+	  width: 130px;
+  }
+  
+  .header-inner-calendar{
+	  vertical-align: middle;
+  }
+  
+  .header-inner-title{
+	  font-size: 25px;
+  }
+  
+  a.button, button.script-button{
+	  font-size: 16px;
+	  padding: 3px 5px 2px 5px;
+  }
+  
+  .episode-details-wrapper{
+	  height: 250px;
+  }
+  
+  .episode-details tr td:first-child{
+	padding: 3px 5px 3px 1px;
+}
+  
   .hidden-desktop {
     display: inherit !important;
   }
@@ -1390,6 +1473,8 @@ button.close {
   .hidden-tablet {
     display: none !important;
   }
+  
+  
 }
 
 
@@ -1437,7 +1522,7 @@ button.close {
  }
  
  .episode-item{
-	 margin: 5px;
+	 margin: 8px;
 	 margin-bottom: 15px;
 	 -moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
@@ -1445,18 +1530,36 @@ button.close {
  }
  
  .header-inner-dropdown{
-	 font-size: 20px;
+	 font-size: 30px;
 	 width: 25px
  }
- 
- 
  .arrow-wrapper {
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 }
  
  .episode-item-header{
-	 padding: 5px 5px 5px 5px;
+	 padding: 5px 5px 10px 5px;
+ }
+ 
+ .episode-details-wrapper{
+	 padding: 0px 5px 0px 5px;
+	 position: relative;
+ }
+ 
+ .episode-details{
+	 padding: 0px 15px;
+ }
+ 
+ .episode-item-content-inner{
+	 padding: 0 0px 5px 0px;
+ }
+ 
+ .episode-script{
+	margin: 0px 10px 5px 10px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
  }
  
  .search-string{
@@ -1481,16 +1584,19 @@ button.close {
  
  button.script-button{
 	 font-size: 16px;
+	 position: relative;
  }
  
  a.button{
-	 font-size: 16px;
+	 font-size: 18px;
 	 margin: 2px;
+	 padding: 5px 10px 3px 10px;
  }
  
  .script-icon{
 	 font-size: 25px;
  }
+ 
  
   .hidden-desktop {
 display: inherit !important;
@@ -1500,6 +1606,10 @@ display: inherit !important;
   }
   .visible-phone {
     display: inherit !important;
+  }
+  
+  tr.visible-phone {
+    display: table-row !important;
   }
   .hidden-phone {
     display: none !important;
@@ -1668,6 +1778,9 @@ display: inherit !important;
     position: static;
   }
 }
+
+
+
 @media (min-width: 768px) and (max-width: 979px) {
   .row {
     margin-left: -20px;
@@ -2008,7 +2121,20 @@ display: inherit !important;
     width: 28px;
   }
 }
+
+/* Media Break Over 1200px */
+
 @media (min-width: 1200px) {
+
+  
+  .episode-details-wrapper{
+		height: 380px;
+	}
+	
+	button.script-button{
+		position: absolute;
+	}
+  
   .row {
     margin-left: -30px;
     *zoom: 1;

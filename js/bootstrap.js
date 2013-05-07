@@ -31,17 +31,15 @@
    //Used for Dropdown Toggle animation. Actual animation handled within CSS
    $('.episode-item-header').click(function(){
 	   $(this).parent().toggleClass('opened closed');
-	   var itemHeight = $(this).next('').children('.episode-item-content-inner').height();
-	   $('.episode-item-content').height(itemHeight+15);
+	  /* var itemHeight = $(this).next('').children('.episode-item-content-inner').height();
+	   $('.episode-item-content').height(itemHeight+15); */
    });
    
    $('.script-button').click(function(){
 	   $(this).closest('.episode-item-content').find('.episode-script').toggle();
 	   $(this).closest('.episode-item').toggleClass('scripted');	   
    });
-   
-   	
-   	
+      	
    	
   /*                 END CUSTOM JS
    * ======================================================= */
