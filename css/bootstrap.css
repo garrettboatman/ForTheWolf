@@ -156,10 +156,21 @@ input:-ms-input-placeholder {  color: #d2d2d2;  }
 .episode-item-header{
 	padding: 15px 15px 10px 15px;
 	cursor: pointer;
-	transition: .2s;
-	-moz-transition: .2s; /* Firefox 4 */
-	-webkit-transition: .2s; /* Safari and Chrome */
-	-o-transition: .2s; /* Opera */
+	transition: .5s;
+	-moz-transition: .5s; /* Firefox 4 */
+	-webkit-transition: .5s; /* Safari and Chrome */
+	-o-transition: .5s; /* Opera */
+}
+
+.header-inner-title{
+	transition: .5s;
+	-moz-transition: .5s; /* Firefox 4 */
+	-webkit-transition: .5s; /* Safari and Chrome */
+	-o-transition: .5s; /* Opera */
+}
+
+.episode-item-header:hover .header-inner-title{
+	color: #ffaa25;
 }
 
 
@@ -173,16 +184,30 @@ input:-ms-input-placeholder {  color: #d2d2d2;  }
 	-o-transition: .5s; /* Opera */
 }
 
+.scripted .episode-item-content{
+	transition: none;
+	-moz-transition: none; /* Firefox 4 */
+	-webkit-transition: none; /* Safari and Chrome */
+	-o-transition: none; /* Opera */
+}
+
+.closed .episode-item-content{
+	transition: .5s !important;
+	-moz-transition: .5s !important; /* Firefox 4 */
+	-webkit-transition: .5s !important; /* Safari and Chrome */
+	-o-transition: .5s !important; /* Opera */
+}
+
 .opened .episode-item-content{
 	/* height: auto; */
 }
 
 .closed .episode-item-content{
-	height: 0 !important;
+	 height: 0 !important; 
 }
 
 .opened .episode-item-content{
-	height: auto !important;
+	/* height: auto !important; */
 }
 
 
@@ -357,7 +382,7 @@ button.script-button{
 
 .episode-script{
 	font-family: "Courier New", Courier, monospace;
-	display: none;
+	overflow: hidden;
 	margin-top: 10px;
 	font-size: 14px;
 	color: #6f6f6f;
@@ -369,6 +394,14 @@ button.script-button{
 	-webkit-background-clip: padding-box;
 	background-clip: padding-box;
 	background-color: #f4f4f4;
+	transition: .5s;
+	-moz-transition: .5s; /* Firefox 4 */
+	-webkit-transition: .5s; /* Safari and Chrome */
+	-o-transition: .5s; /* Opera */
+}
+
+.unscripted .episode-script{
+	height: 0px !important;
 }
 
 .episode-script-inner{
@@ -1548,7 +1581,7 @@ button.close {
  }
  
  .episode-details{
-	 padding: 0px 15px;
+	 padding: 0px 0px;
  }
  
  .episode-item-content-inner{

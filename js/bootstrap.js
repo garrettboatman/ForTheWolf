@@ -26,18 +26,25 @@
    document.addEventListener("touchstart", function(){}, true);
    
    
-    $('.episode-item').addClass('closed');
+    $('.episode-item').addClass('closed unscripted');
    
    //Used for Dropdown Toggle animation. Actual animation handled within CSS
-   $('.episode-item-header').click(function(){
-	   $(this).parent().toggleClass('opened closed');
-	  /* var itemHeight = $(this).next('').children('.episode-item-content-inner').height();
-	   $('.episode-item-content').height(itemHeight+15); */
+   $('.episode-item-header').click(function(){	   
+	  $(this).parent().toggleClass('opened closed');
+	  var accordion = $(this).parent().children('.episode-item-content');
+	  accordion.height('auto');
+	  var accordionHeight = accordion.height();
+	  accordion.height(accordionHeight);
    });
    
+   
+   //Used for Script dropdown animation. Actual animation handled within CSS
    $('.script-button').click(function(){
-	   $(this).closest('.episode-item-content').find('.episode-script').toggle();
-	   $(this).closest('.episode-item').toggleClass('scripted');	   
+	  $(this).closest('.episode-item').toggleClass('scripted unscripted');
+	  var script =  $(this).closest('.episode-item-content').find('.episode-script');
+	  script.height('auto');
+	  var scriptHeight = script.height();
+	  $(this).closest('.episode-item-content').height('auto');
    });
       	
    	
