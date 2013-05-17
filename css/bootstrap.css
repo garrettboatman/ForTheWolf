@@ -19,7 +19,7 @@
 /* General */
 
 html, body{
-	font-family: 'DINMittelschriftRegular';
+	font-family: 'Futura-Light';
 	color: #989898;
 	font-size: 20px;
 	font-weight: normal;
@@ -64,7 +64,7 @@ body{
 /* Search Field */
 
 .search-wrapper{
-	margin-top: 200px;
+	margin-top: 180px;
 	position: relative;
 }
 
@@ -80,13 +80,13 @@ body{
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	font-size: 30px;
-	border: 1px solid rgba(203,203,203,.19);
-	-moz-border-radius: 31px;
-	-webkit-border-radius: 31px;
-	border-radius: 31px;
-	-moz-background-clip: padding;
-	-webkit-background-clip: padding-box;
-	background-clip: padding-box;
+	border: 1px solid rgba(203,203,203,.2);
+	-moz-border-radius: 35px;
+	-webkit-border-radius: 35px;
+	border-radius: 35px;
+	-moz-background-clip: border-box;
+	-webkit-background-clip: border-box;
+	background-clip: border-box;
 	background-color: #fff;
 	-moz-box-shadow: 1px 1px 3px rgba(0,0,0,.11);
 	-webkit-box-shadow: 1px 1px 3px rgba(0,0,0,.11);
@@ -104,13 +104,21 @@ body{
 	-o-transition: opacity .5s; /* Opera */
 }
 
-.search-button:hover{
-	opacity: .7;
-} 
+
 
 input:focus, textarea:focus, select:focus{
 	outline:0;
     outline:none;
+}
+
+.advanced-wrapper{
+	text-align: center;
+	margin: 10px 0px;
+}
+
+.advanced{
+	cursor: pointer;
+	font-size: 28px;
 }
 
 input::-webkit-input-placeholder {color: #d2d2d2;}
@@ -154,7 +162,7 @@ input:-ms-input-placeholder {  color: #d2d2d2;  }
 }
 
 .episode-item-header{
-	padding: 15px 15px 10px 15px;
+	padding: 15px 15px 15px 15px;
 	cursor: pointer;
 	transition: .5s;
 	-moz-transition: .5s; /* Firefox 4 */
@@ -162,15 +170,17 @@ input:-ms-input-placeholder {  color: #d2d2d2;  }
 	-o-transition: .5s; /* Opera */
 }
 
-.header-inner-title{
+.episode-item-header:hover .dropdown_arrow, .opened .dropdown_arrow{
+	color: #ff9c00;
+}
+
+
+
+.header-inner-title, .dropdown_arrow{
 	transition: .5s;
 	-moz-transition: .5s; /* Firefox 4 */
 	-webkit-transition: .5s; /* Safari and Chrome */
 	-o-transition: .5s; /* Opera */
-}
-
-.episode-item-header:hover .header-inner-title{
-	color: #ffaa25;
 }
 
 
@@ -196,6 +206,7 @@ input:-ms-input-placeholder {  color: #d2d2d2;  }
 	-moz-transition: .5s !important; /* Firefox 4 */
 	-webkit-transition: .5s !important; /* Safari and Chrome */
 	-o-transition: .5s !important; /* Opera */
+	position: relative;
 }
 
 .opened .episode-item-content{
@@ -246,13 +257,12 @@ table.episode-header-inner{
 	font-family: 'BebasRegular';
 	word-spacing: 5px;
 	font-size: 30px;
-	line-height: 30px;
-	vertical-align: top;
-	padding-top: 6px;
+	line-height: 34px;
+	vertical-align: middle;
 }
 
 .header-inner-calendar{
-	vertical-align: top;
+	vertical-align: middle;
 	width: 40px;
 }
 
@@ -302,10 +312,11 @@ table.episode-header-inner{
 a.button, button.script-button{
 	color: #fff;
 	background-color: #ffb300;
-	padding: 10px 15px 7px 15px;
+	padding: 5px 25px 5px 25px;
 	border: none;
 	text-shadow: 1px 2px 0 rgba(0,0,0,.2);
 	min-width: 70px;
+	font-family: 'Futura-Light';
 	display: inline-block;
 	margin: 0px 5px;
 	font-size: 20px;
@@ -386,13 +397,15 @@ button.script-button{
 	margin-top: 10px;
 	font-size: 14px;
 	color: #6f6f6f;
-	border: 1px solid #e4e4e4;
 	-moz-border-radius: 16px;
 	-webkit-border-radius: 16px;
 	border-radius: 16px;
 	-moz-background-clip: padding;
 	-webkit-background-clip: padding-box;
 	background-clip: padding-box;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
 	background-color: #f4f4f4;
 	transition: .5s;
 	-moz-transition: .5s; /* Firefox 4 */
@@ -634,13 +647,12 @@ body {
 
 }
 a {
-  color: #0088cc;
+  color: #ff9c00;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #005580;
-  text-decoration: underline;
+  color: #e58c00;
 }
 .img-rounded {
   -webkit-border-radius: 6px;
@@ -1446,7 +1458,7 @@ button.close {
 @media (min-width: 768px) and (max-width: 979px) {
   
   .episode-item-header{
-	  padding: 5px 5px 10px 5px;
+	  padding: 10px 5px 10px 5px;
   }
   
   .header-inner-calendar{
@@ -1479,6 +1491,7 @@ button.close {
   
   .header-inner-title{
 	  font-size: 25px;
+	  line-height: 27px;
   }
   
   a.button, button.script-button{
@@ -1517,19 +1530,27 @@ button.close {
  
  #header-inner{
 	 background-size: 2000px;
-	 height: 180px;
+	 height: 210px;
  }
  
  #header_wrapper{
-	 height: 320px;
-	 background-size: 550px;
+	 height: 350px;
+	 background-size: 600px;
+ }
+ 
+ .advanced-wrapper{
+	 margin: 5px 0px;
  }
  
  #search-field{
 	 font-size: 20px;
+	 width: 100px;
 	 line-height: 30px;
-	 width: 95%;
-	 word-spacing: 2px;
+	width: 97%;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	border: 1px solid rgba(203,203,203,0);
  }
  
  .search-wrapper{
@@ -1551,7 +1572,7 @@ button.close {
 	 font-size: 20px;
 	 line-height: 22px;
 	 word-spacing: 3px;
-	 padding-top: 6px;
+	 vertical-align: middle;
  }
  
  .episode-item{
@@ -1572,7 +1593,7 @@ button.close {
 }
  
  .episode-item-header{
-	 padding: 5px 5px 10px 5px;
+	 padding: 5px 5px 7px 5px;
  }
  
  .episode-details-wrapper{
@@ -1616,14 +1637,14 @@ button.close {
  }
  
  button.script-button{
-	 font-size: 16px;
+	 font-size: 20px;
 	 position: relative;
  }
  
  a.button{
 	 font-size: 18px;
 	 margin: 2px;
-	 padding: 5px 10px 3px 10px;
+	 padding: 3px 10px 3px 10px;
  }
  
  .script-icon{
@@ -2190,7 +2211,7 @@ display: inherit !important;
   .navbar-static-top .container,
   .navbar-fixed-top .container,
   .navbar-fixed-bottom .container {
-    width: 1170px;
+    width: 1070px;
   }
   .span12 {
     width: 1170px;
