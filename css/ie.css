@@ -1,0 +1,4 @@
+/* IE Styled Checkboxes - For the unsupported 'background-size' property */
+input[type=checkbox] + label{background-position: -3px -2px;}
+input[type=checkbox]:checked + label{background-position: -3px -69px;}
+input[type=checkbox] + label:active{background-position: -3px -36px;}

@@ -39,6 +39,11 @@
    
    
    //Used for Script dropdown animation. Actual animation handled within CSS
+   $('.button, .script-button').click(function(){
+	   $(this).toggleClass('active');
+   });
+   
+   
    $('.script-button').click(function(){
 	  $(this).closest('.episode-item').toggleClass('scripted unscripted');
 	  var script =  $(this).closest('.episode-item-content').find('.episode-script');

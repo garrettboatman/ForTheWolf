@@ -116,10 +116,28 @@ input:focus, textarea:focus, select:focus{
 	margin: 10px 0px;
 }
 
+.advanced-wrapper .popover{text-align: center;}
+.advanced-wrapper .popover label{margin:2px 20px;text-align: left;}
+
 .advanced{
-	cursor: pointer;
 	font-size: 28px;
 }
+
+
+
+input[type=checkbox]{display: none;}
+input[type=checkbox] + label{
+	padding-left: 30px;
+	display: block;
+	background: url('../img/ja-check-sprite5.png');
+	background-repeat: no-repeat;
+	background-size: 22px;
+}
+
+/* Retina Styled Checkboxes */
+input[type=checkbox] + label{background-position: 0px -58px;}
+input[type=checkbox]:checked + label{background-position: 0px -106px;}
+input[type=checkbox] + label:active{background-position: 0px -83px;}
 
 input::-webkit-input-placeholder {color: #d2d2d2;}
 input:-moz-placeholder { /* Firefox 18- */color: #d2d2d2; }
@@ -310,6 +328,7 @@ table.episode-header-inner{
 }
 
 a.button, button.script-button{
+	cursor: pointer;
 	color: #fff;
 	background-color: #ffb300;
 	padding: 5px 25px 5px 25px;
@@ -331,7 +350,7 @@ a.button, button.script-button{
 	background-image: linear-gradient(bottom, #ef9d1d 0%, #ffb13a 100%);
 }
 
-a.button:hover, .script-button:hover{
+a.button:hover, a.active, .script-button:hover{
 	color: #fff;
 	text-decoration: none;
 	background-color: #ffb300;
@@ -1128,14 +1147,14 @@ a:focus {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+ /*  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2); */
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 1px 4px rgba(0,0,0,.18);
+  -webkit-box-shadow: 1px 1px 4px rgba(0,0,0,.18);
+  box-shadow: 1px 1px 4px rgba(0,0,0,.18);
   white-space: normal;
 }
 .popover.top {
@@ -1153,8 +1172,10 @@ a:focus {
 .popover-title {
   margin: 0;
   padding: 8px 14px;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: normal;
+  font-family: 'BebasRegular';
+  word-spacing: 3px;
   line-height: 18px;
   background-color: #f7f7f7;
   border-bottom: 1px solid #ebebeb;
@@ -1547,9 +1568,9 @@ button.close {
 	 width: 100px;
 	 line-height: 30px;
 	width: 97%;
-	-moz-border-radius: 15px;
-	-webkit-border-radius: 15px;
-	border-radius: 15px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid rgba(203,203,203,0);
  }
  
