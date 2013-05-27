@@ -23,11 +23,14 @@
   /* CUSTOM JS (http://www.garrettboatman.com/)
    * ======================================================= */
 
+   /* Enables Mobile Device touch hover */
    document.addEventListener("touchstart", function(){}, true);
-   
-   
-    $('.episode-item').addClass('closed unscripted');
-   
+  
+   /* added a class of "preload" to the body element.This class is removed after page load. */
+   $("body").removeClass("preload");
+	
+   $('.episode-item').addClass('closed unscripted');
+       
    //Used for Dropdown Toggle animation. Actual animation handled within CSS
    $('.episode-item-header').click(function(){	   
 	  $(this).parent().toggleClass('opened closed');
@@ -51,6 +54,28 @@
 	  var scriptHeight = script.height();
 	  $(this).closest('.episode-item-content').height('auto');
    });
+   
+   
+   
+   /* Advanced Options & Datepicker JS */
+	$('#range-start').datepicker({format: 'mm-dd-yyyy'});
+	$('#range-end').datepicker({format: 'mm-dd-yyyy'});
+	
+	$('.advanced-button').click(function(){
+		$(this).hide();
+		$('.advanced-wrapper').fadeIn(); 
+	});
+	 
+	 $('#range-start').datepicker()
+	  .on('show', function(){
+		  $('#range-end').datepicker('hide');
+		 
+	  });
+	  
+	  $('#range-end').datepicker()
+	  .on('show', function(){
+		  $('#range-start').datepicker('hide');
+	  });
       	
    	
   /*                 END CUSTOM JS
