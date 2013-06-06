@@ -1895,6 +1895,26 @@ button.close {
 	 left: 167px;
  }
  
+.popover{
+	top: 5px !important;
+	max-width: 250px !important;
+}
+.info{position: absolute;
+	right: 5px;
+	top: 5px;
+	cursor: pointer;
+	color: #fff;
+	transition: opacity .2s;
+	-moz-transition: opacity .2s; /* Firefox 4 */
+	-webkit-transition: opacity .2s; /* Safari and Chrome */
+	-o-transition: opacity .2s; /* Opera */
+	
+}
+
+.profileinfo{
+	font-size: 40px;
+}
+ 
  #header-inner{
 	 background-image: url('../img/site-title-mobile.png');
 	 background-size: 1500px;
