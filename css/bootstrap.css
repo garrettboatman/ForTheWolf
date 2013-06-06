@@ -14,7 +14,49 @@
 
 /* Custom CSS (http://www.garrettboatman.com/) */
 
+.info{position: absolute;
+	right: 20px;
+	top: 20px;
+	cursor: pointer;
+	color: #fff;
+	transition: opacity .2s;
+	-moz-transition: opacity .2s; /* Firefox 4 */
+	-webkit-transition: opacity .2s; /* Safari and Chrome */
+	-o-transition: opacity .2s; /* Opera */
+	
+}
 
+.popover-content{
+	font-size: 16px;
+}
+
+.info:hover{
+	opacity: .5;
+	color: #fff;
+}
+
+.profileinfo{
+	font-size: 60px;
+	
+}
+
+.popover{
+	top: 30px !important;
+	max-width: 350px !important;
+}
+
+.popover.left .arrow{
+	top: 21px !important;
+	right: -9px !important;
+	margin-top: -11px;
+	border-right-width: 0 !important;
+	border-left-color: #fff !important;
+}
+
+
+.popover.left .arrow:after{
+	border-left-color: #f7f7f7 !important;
+}
 
 /* General */
 
@@ -65,7 +107,7 @@ body{
 	width: 100%;
 	background-image: url('../img/site-title.png');
 	background-position: center top;
-	background-size: 3000px;
+	background-size: 2300px;
 	background-repeat: no-repeat;
 	position: absolute;
 	bottom: 0;
@@ -79,7 +121,7 @@ body{
 /* Search Field */
 
 .search-wrapper{
-	margin-top: 180px;
+	margin-top: 160px;
 	position: relative;
 }
 
@@ -160,7 +202,7 @@ label.ie{
 	color: #fff;
 }
 
-.ie{display: none;}
+.ie{display: none !important;}
 
 .advanced-wrapper .popover{text-align: center;}
 .advanced-wrapper .popover label{margin:2px 20px 10px 30px;text-align: left;}
@@ -534,6 +576,8 @@ button.script-button{
 /* Footer */
 .footer{
 	padding: 15px;
+	text-align: center;
+	font-size: 16px;
 }
 
 /* Custom Scaffolding */
@@ -1853,7 +1897,7 @@ button.close {
  
  #header-inner{
 	 background-image: url('../img/site-title-mobile.png');
-	 background-size: 2000px;
+	 background-size: 1500px;
 	 min-height: 210px;
 	 
  }
@@ -1879,7 +1923,7 @@ button.close {
  }
  
  .advanced-button{
-	 margin-top: 6px !important;
+	 margin-top: 15px !important;
  }
  
  input[type=checkbox] + label{font-size: 17px;display: inline-block;height: 20px;padding-left: 25px;margin-right: 20px;line-height: 25px;}
@@ -1899,7 +1943,7 @@ button.close {
  .search-wrapper{
 	 
 	 text-align: center;
-	 margin-top: 115px;
+	 margin-top: 95px;
  }
  .search-button{
 	 font-size: 40px;

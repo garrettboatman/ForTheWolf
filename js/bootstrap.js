@@ -23,6 +23,10 @@
   /* CUSTOM JS (http://www.garrettboatman.com/)
    * ======================================================= */
 
+   
+   
+
+
    /* Enables Mobile Device touch hover */
    document.addEventListener("touchstart", function(){}, true);
   
