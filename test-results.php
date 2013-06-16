@@ -19,8 +19,9 @@
 					<div class="episodes-wrapper span12">	
 						<?php
 							// Create connection
-							// Garrett's Local Setup $con=mysqli_connect("localhost", "root", "root", "janda");
-							$con=mysqli_connect("192.168.1.2", "mithos", "martel", "janda");
+							
+							// Garrett's Local Setup:: $con=mysqli_connect("localhost", "root", "root", "janda");
+							$con=mysqli_connect("mysql.jakeandamir.dreamhosters.com", "mithos", "martel1864", "janda");
 
 							// Check connection
 							if (mysqli_connect_errno($con))
