@@ -25,12 +25,12 @@
 					<div class="row-fluid">
 						<div class="span8 offset2 search-wrapper">
 							<!-- Search Form -->
-							<form id="MY SEARCH FORM" method="get">
-								<label for="search-field" class="ie">Search any phrase...</label>
-								<input id="search-field" value="" autocomplete="off" placeholder="Search any phrase..." >
+							<form method="get" action="index.php">
+								<label for="search-terms-bar" class="ie">Search any phrase...</label>
+								<input id="search-terms-bar" value="" autocomplete="off" placeholder="Search any phrase..." >
 								<button class="search-button" type="submit"><span class="profilesearch"></span></button>
 								<a class="button advanced-button">Advanced Options</a>
-								<div class="advanced-wrapper">
+								<div id="advanced-options">
 								<!-- Advanced Options Inputs -->
 								<input id="title" type="checkbox" value="title"><label for="title">Episode Title</label>
 								<input id="phrase" type="checkbox" value="phrase"><label for="phrase">Exact Phrase</label>
@@ -51,7 +51,7 @@
 			<div class="container">
 				<div class="row-fluid">
 					<div class="results-wrapper span12">
-						Showing <span class="results-number">30</span> Results for <span class="search-string">"Ben Schwartz"</span>		
+						Showing <span class="results-number">30</span> Results for <span class="search-string">"Ben Schwartz"</span>
 					</div>
 				</div>
 				<div class="row-fluid">

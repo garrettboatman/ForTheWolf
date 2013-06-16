@@ -67,7 +67,7 @@
 	
 	$('.advanced-button').click(function(){
 		$(this).hide();
-		$('.advanced-wrapper').fadeIn(); 
+		$('#advanced-options').fadeIn(); 
 	});
 	 
 	 $('#range-start').datepicker()

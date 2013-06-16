@@ -127,7 +127,7 @@ body{
 
 .search-wrapper form{text-align: center;}
 
-#search-field{
+#search-terms-bar{
 	width: 100%;
 	line-height: 37px;
 	font-family: 'BebasRegular';
@@ -192,7 +192,7 @@ input:focus, textarea:focus, select:focus{
     outline:none;
 }
 
-.advanced-wrapper{
+#advanced-options{
 	text-align: center;
 	margin: 11px 0px 9px 0px;
 	display: none;
@@ -204,8 +204,8 @@ label.ie{
 
 .ie{display: none !important;}
 
-.advanced-wrapper .popover{text-align: center;}
-.advanced-wrapper .popover label{margin:2px 20px 10px 30px;text-align: left;}
+#advanced-options .popover{text-align: center;}
+#advanced-options .popover label{margin:2px 20px 10px 30px;text-align: left;}
 
 .advanced{
 	font-size: 28px;
@@ -1938,7 +1938,7 @@ button.close {
 	 width: 100px;
  }
  
- .advanced-wrapper{
+ #advanced-options{
 	 margin: 5px 0px;
  }
  
@@ -1948,7 +1948,7 @@ button.close {
  
  input[type=checkbox] + label{font-size: 17px;display: inline-block;height: 20px;padding-left: 25px;margin-right: 20px;line-height: 25px;}
  
- #search-field{
+ #search-terms-bar{
 	 font-size: 20px;
 	 width: 100px;
 	 line-height: 30px;
