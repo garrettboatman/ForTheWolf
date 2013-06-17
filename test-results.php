@@ -108,9 +108,10 @@
 								$duration = $row{'duration'};
 								$air_date = $row{'air_date'};
 								$scribe = $row{'scribe'};
-								
+								$iframe = $row{'embed_src'};
 								//continued below		
 						?>
+						
 
 						<!-- Starts and Episode Item -->
 						<article class="episode-item">
@@ -130,6 +131,7 @@
 										<div class="span7 episode-video">
 											<div class="episode-video-inner">
 												<!-- TODO: iframe on this <a href="<?php echo $link;?>" target="blank"> Episode </a> -->
+												<iframe src="<?php echo $iframe; ?>" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>
 											</div>
 										</div>
 										<div class="span5 episode-details-wrapper">
