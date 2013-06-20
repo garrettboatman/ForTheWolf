@@ -9,7 +9,7 @@
 							" <?php printSearchTerms(array_unique($search)); echo $searchErr ?>"
 						</span>
 						<?php
-						if(!empty($exactPhrase)) echo 'with the exact phrase:' . $exactPhrase.'<br>';
+						if(!empty($exactPhrase)) echo 'Exact phrase enabled <br>';
 						if(!empty($titleOnly)) echo "Search limited to title only <br>";  
 						if(!empty($fromDate) && !empty($toDate)) echo 'Between' . $fromDate . ' and ' . $toDate.'<br>';
 						?>
@@ -22,6 +22,7 @@
 							
 							// Garrett's Local Setup:: $con=mysqli_connect("localhost", "root", "root", "janda");
 							$con=mysqli_connect("mysql.jakeandamir.dreamhosters.com", "mithos", "martel1864", "janda");
+							// Chris $con=mysqli_connect("192.168.1.9", "mithos", "martel", "janda");
 
 							// Check connection
 							if (mysqli_connect_errno($con))
@@ -38,9 +39,12 @@
 								to-date : string
 							
 							*/							
-							
+						
+              // join all search terms into one string
 							if(!empty($exactPhrase)) {
-								array_push($search, $exactPhrase);
+                $exactString = implode(" ", $search);
+                $search = array();
+                array_push($search, $exactString);
 							}
 							
 							// Create query for single episode
@@ -59,7 +63,7 @@
 								if( isset($search) && $searchLength > 0){
 									// construct title query
 									for ($i = 0; $i < $searchLength; $i++) {
-										$word = mysql_real_escape_string($search[$i]);
+										$word = mysqli_real_escape_string($con, $search[$i]);
 										$titleQuery = $titleQuery . "title LIKE '%" . $word . "%'";
 										if($i != $searchLength - 1){
 											$titleQuery = $titleQuery . " AND ";
@@ -71,7 +75,7 @@
 										
 										// construct script query
 										for ($i = 0; $i < $searchLength; $i++) {
-											$word = mysql_real_escape_string($search[$i]);
+											$word = mysqli_real_escape_string($con, $search[$i]);
 											$scriptQuery = $scriptQuery . "script LIKE '%" . $word . "%'";
 											if($i != $searchLength - 1){
 												$scriptQuery = $scriptQuery . " AND ";

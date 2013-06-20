@@ -84,15 +84,15 @@ session_start();
 						} else {
 							$search = removeBlanks(explode(" ", $_GET["search"]));
 						}
-						if(empty($_GET["exact-phrase"])) {
+						if(isset($_GET["exact-phrase"])) {
+							$exactPhrase = "checked";
+						} else {
 							$exactPhraseErr = "No search terms selected.";
-						} else {
-							$exactPhrase = $_GET["exact-phrase"];
 						}						
-						if(empty($_GET["title-only"])) {
-							$titleOnlyErr =  "Missing";
+						if(isset($_GET["title-only"])) {
+							$titleOnly =  "checked";
 						} else {
-							$titleOnly = "checked='checked'";
+							$titleOnlyErr = "Missing title-only";
 						}
 						if(empty($_GET["from-date"])) {
 							$fromDateErr = "Missing";
@@ -114,8 +114,8 @@ session_start();
 								
 								<!-- TODO New Advanced Options -->
 								<div id="advanced-options">
-									<input id="title" type="checkbox" value="title"><label for="title">Episode Title</label>
-									<input id="phrase" type="checkbox" value="phrase"><label for="phrase">Exact Phrase</label>
+									<input id="title" type="checkbox" name="title-only"><label for="title">Episode Title</label>
+									<input id="phrase" type="checkbox" name="exact-phrase"><label for="phrase">Exact Phrase</label>
 									<br>
 									<div class="range-wrapper">
 										<input id="range-start" class="range datepicker" placeholder="Start Date" type="text"  value="02-14-2012">
@@ -128,11 +128,11 @@ session_start();
 								<!-- TODO Old ADVANCED OPTIONS -->
 								<div id="advanced-options">
 									<div>
-										<input id="exact-phrase-bar" class="default-text"  type="text" name="exact-phrase"
+										<input id="exact-phrase-bar" class="default-text"  type="text" name="exact-phrase-old"
 											value="<?php echo $exactPhrase;?>" autocomplete="off" />
 									</div>
 									<div id="title-only" class="advanced-option-box">
-										<input id="title-only-checkbox" type="checkbox" name="title-only" <?php echo $titleOnly;?> />
+										<input id="title-only-checkbox" type="checkbox" name="title-only-old" <?php echo $titleOnly;?> />
 										<label for="title-only-checkbox"> Search by title only</label>
 									</div>
 									<div id="date-pickers" class="advanced-option-box">
