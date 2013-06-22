@@ -11,7 +11,7 @@
 						<?php
 						if(!empty($exactPhrase)) echo 'Exact phrase enabled <br>';
 						if(!empty($titleOnly)) echo "Search limited to title only <br>";  
-						if(!empty($fromDate) && !empty($toDate)) echo 'Between' . $fromDate . ' and ' . $toDate.'<br>';
+						if(!empty($fromDate) && !empty($toDate)) echo 'Between ' . $fromDate . ' and ' . $toDate .'<br>';
 						?>
 					</div>
 				</div>
@@ -56,8 +56,9 @@
 							// Create query for search
 							else {														
 								// Build the title search terms
-								$titleQuery = "SELECT * from episodes WHERE (";
+								$titleQuery = "SELECT * from episodes WHERE ((";
 								$scriptQuery = "";							
+                $dateQuery = "";
 								$searchLength = count($search);
 								
 								if( isset($search) && $searchLength > 0){
@@ -80,16 +81,19 @@
 											if($i != $searchLength - 1){
 												$scriptQuery = $scriptQuery . " AND ";
 											} else {
-												$scriptQuery = $scriptQuery . ")";
+												$scriptQuery = $scriptQuery . "))";
 											}
 										}
-										
-										
+																				
 									} else {
-										$titleQuery = $titleQuery . ")"; 
+										$titleQuery = $titleQuery . "))"; 
 									}
-									
-								$fullQuery = $titleQuery . "" . $scriptQuery . ";"; //may not need semicolon
+
+									if(!empty($toDate) && !empty($fromDate)) {
+                    $dateQuery = " AND (air_date <='". $toDate ."' AND air_date >= '" . $fromDate . "') ORDER BY air_date ASC";
+
+                  }
+								$fullQuery = $titleQuery . "" . $scriptQuery . "" . $dateQuery . ";"; //may not need semicolon
 								
 								}								
 								

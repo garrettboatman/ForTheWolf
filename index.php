@@ -97,12 +97,12 @@ session_start();
 						if(empty($_GET["from-date"])) {
 							$fromDateErr = "Missing";
 						} else {
-							$fromDate = $_GET["from-date"];
+							$fromDate = toSqlDate($_GET["from-date"]);
 						}
 						if(empty($_GET["to-date"])) {
 							$toDateErr = "Missing";
 						} else {
-							$toDate = $_GET["to-date"];
+							$toDate = toSqlDate($_GET["to-date"]);
 						}
 					}
 					?>
@@ -118,9 +118,9 @@ session_start();
 									<input id="phrase" type="checkbox" name="exact-phrase"><label for="phrase">Exact Phrase</label>
 									<br>
 									<div class="range-wrapper">
-										<input id="range-start" class="range datepicker" placeholder="Start Date" type="text"  value="02-14-2012">
+										<input id="range-start" class="range datepicker" placeholder="Start Date" type="text" name="from-date" />
 										<span class="range-label"> to </span>
-										<input id="range-end"  class="range datepicker" placeholder="End Date" type="text" value="02-16-2012">
+										<input id="range-end"  class="range datepicker" placeholder="End Date" type="text" name="to-date" />
 									</div>
 								</div>
 								<!-- END New Advanced Options -->
@@ -136,8 +136,8 @@ session_start();
 										<label for="title-only-checkbox"> Search by title only</label>
 									</div>
 									<div id="date-pickers" class="advanced-option-box">
-										<label>Between</label> <input id="from-date" class="date-input" type="text" name="from-date" value="<?php echo $fromDate;?>" />
-										<label>and</label> <input id="to-date" class="date-input" type="text" name="to-date" value="<?php echo $toDate?>" />
+										<label>Between</label> <input id="from-date" class="date-input" type="text" value="<?php echo $fromDate;?>" />
+										<label>and</label> <input id="to-date" class="date-input" type="text" value="<?php echo $toDate?>" />
 									</div>
 								</div>
 								<div class="submit-container">
