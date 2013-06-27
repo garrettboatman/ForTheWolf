@@ -179,7 +179,7 @@
 											<tr>
 												<td><span class="icon-share"></span></td>
 												<td>
-													<a target="_blank" class="button b-facebook" href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=<?php echo $singleEpisodeUrl; ?>&p[title]=Jake & Amir: <?php echo $title; ?>&p[summary]=">
+													<a target="_blank" class="button b-facebook" href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=<?php echo $singleEpisodeUrl; ?>&p[title]=Jake and Amir: <?php echo $title; ?>&p[summary]=">
 														Facebook
 													</a><a target="_blank" class="button b-twitter" href="http://twitter.com/home?status=@JakeAndAmir: <?php echo $title; ?> <?php echo $singleEpisodeUrl; ?>">
 														Twitter
