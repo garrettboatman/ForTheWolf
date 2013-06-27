@@ -45,7 +45,7 @@
 	  
 	  
 	  // Initialized iframe src attribute on selection of episode
-	  var iframe = $(this).parent().find(".episode-video-inner iframe")
+	  var iframe = $(this).parent().find(".episode-video-inner iframe");
 	  iframe.attr("src", iframe.data('src'));
    });
    
