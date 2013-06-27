@@ -98,8 +98,10 @@
 								}								
 								
 							}
+							?>
+							<script>console.log('<?php echo $fullQuery; ?>');</script>
 							
-							echo $fullQuery;
+							<?php
 							//execute the SQL query and return records
 							$result = mysqli_query($con, $fullQuery);
 						?>
@@ -120,7 +122,6 @@
 								//continued below		
 						?>
 						
-
 						<!-- Starts and Episode Item -->
 						<article class="episode-item">
 							<div class="episode-item-header">
@@ -139,7 +140,7 @@
 										<div class="span7 episode-video">
 											<div class="episode-video-inner">
 												<!-- TODO: iframe on this <a href="<?php echo $link;?>" target="blank"> Episode </a> -->
-												<iframe src="<?php echo $iframe; ?>" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>
+												<iframe data-src="<?php echo $iframe; ?>" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>
 											</div>
 										</div>
 										<div class="span5 episode-details-wrapper">
@@ -170,14 +171,20 @@
 												</tr>
 											<?php } ?>
 											<!-- endif -->
-											
+											<?php $singleEpisodeUrl = "index.php?single-episode=1&single-id=" . $id ; ?>
 											<tr>
 												<td><span class="reddit_icon"></span></td>
-												<td><a class="button" href="#">Post</a> by <a target="_blank" class="button" href="http://www.reddit.com/u/<?php echo $scribe; ?>"><?php echo $scribe; ?></a></td>
-											
-											<!-- <?php  // TODO: Create Front End Share Options create permalink to episode page
-											$singleEpisodeUrl = "index.php?single-episode=1&single-id=" . $id ; ?>
-											<span class="permalink"> <a href="<?php echo $singleEpisodeUrl; ?>">Permalink</a></span>-->
+												<td>Transcribed by <a target="_blank" class="button" href="http://www.reddit.com/u/<?php echo $scribe; ?>"><?php echo $scribe; ?></a></td>			
+											</tr>
+											<tr>
+												<td><span class="icon-share"></span></td>
+												<td>
+													<a target="_blank" class="button b-facebook" href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=<?php echo $singleEpisodeUrl; ?>&p[title]=Jake & Amir: <?php echo $title; ?>&p[summary]=">
+														Facebook
+													</a><a target="_blank" class="button b-twitter" href="http://twitter.com/home?status=@JakeAndAmir: <?php echo $title; ?> <?php echo $singleEpisodeUrl; ?>">
+														Twitter
+													</a>
+												</td>
 											</tr>
 											</table>
 											<button class="script-button">
