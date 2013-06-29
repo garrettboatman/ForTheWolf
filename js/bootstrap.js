@@ -42,7 +42,14 @@
 	  accordion.height('auto');
 	  var accordionHeight = accordion.height();
 	  accordion.height(accordionHeight);
+	  
+	  
+	  // Initialized iframe src attribute on selection of episode
+	  var iframe = $(this).parent().find(".episode-video-inner iframe");
+	  iframe.attr("src", iframe.data('src'));
    });
+   
+  
    
    
    //Used for Script dropdown animation. Actual animation handled within CSS
