@@ -1,0 +1,170 @@
+Issue: Script is null
+Solution: 1. Confirm not still in wiki
+		  2. Use script modifier
++-----+-------------------------------------------+
+| id  | title                                     |
++-----+-------------------------------------------+
+|   5 | Kite                                      |
+|   7 | BattleShip                                |
+|  12 | Screen Name                               |
+|  38 | Desktop Prank                             |
+|  45 | Bowling for Soup                          |
+|  46 | Burp                                      |
+|  50 | Make Believe                              |
+|  53 | New Computer                              |
+|  67 | Bless You. (AKA: Lyrics Part Two)         |
+|  69 | My Boy                                    |
+|  71 | Jake and Amir on Yahoo!'s "The 9"         |
+|  75 | Ace and Jocelyn - The TV Pilot            |
+|  76 | High School Friend                        |
+|  78 | Lunch Meeting                             |
+|  79 | Office Fantasy (with Julia Allison)       |
+|  82 | Six Flags                                 |
+|  83 | New Website                               |
+|  94 | Ace and Jocelyn - EPISODE 2!              |
+|  95 | Movie Debate                              |
+|  99 | Bomb Threat                               |
+| 129 | 4th of July                               |
+| 185 | Keys                                      |
+| 193 | New Office [Jake's New Job 5]             |
+| 194 | Mike and Amanda                           |
+| 195 | Jake and Amir Interview The Lonely Island |
+| 196 | Realizations                              |
+| 215 | Making the Band. Perform.                 |
+| 218 | Coma                                      |
+| 226 | eBay                                      |
+| 236 | Party Planning                            |
+| 252 | Heavy Lifting                             |
+| 256 | Eighty Cents                              |
+| 262 | 50,000 Facebook Fans Thank You Video      |
+| 268 | Miami                                     |
+| 269 | Miami Part 2 (Driving)                    |
+| 270 | Miami Part 3 (Bang Bus)                   |
+| 280 | Santa                                     |
+| 299 | Chat Roulette                             |
+| 308 | Cousins                                   |
+| 335 | Emails                                    |
+| 343 | Job                                       |
+| 344 | Girlfriend                                |
+| 345 | Girlfriend Pt. 2 (Aragorn)                |
+| 346 | Girlfriend Pt. 3 (Kite)                   |
+| 352 | Icing                                     |
+| 353 | Jake's Twitter                            |
+| 354 | For the Wolf Shirt                        |
+| 359 | Mickey                                    |
+| 362 | Angry Birds                               |
+| 365 | Breakfast                                 |
+| 399 | Bucket List                               |
+| 451 | Headset                                   |
+| 465 | Diseases                                  |
+| 471 | Nuggets                                   |
+| 473 | Hospital                                  |
+| 475 | Blender                                   |
+| 502 | Brownie                                   |
+| 506 | Airplane                                  |
+| 515 | New Shirt                                 |
+| 519 | Kobayashi                                 |
+| 525 | Normal Conversation                       |
+| 541 | Double Date                               |
+| 544 | Opposite Day                              |
+| 570 | Brownies                                  |
+| 591 | Hookah                                    |
++-----+-------------------------------------------+
+65 rows in set (0.01 sec)
+
+
+Issue: Embed src is missing (but has script)
+Solution: manually set through mysql
++-----+------------------------------------------------------------+
+| id  | title                                                      |
++-----+------------------------------------------------------------+
+|  48 | Photographs                                                |
+| 125 | Ace and Jocelyn - Episode 5                                |
+| 187 | Behind the Scenes of "The CollegeHumor Show" Part One      |
+| 188 | Behind the Scenes of "The CollegeHumor Show" Part Two      |
+| 310 | 75,000 Facebook Fans Thank You Video                       |
+| 390 | 150,000 Facebook Fans Thank You Video                      |
+| 443 | 200,000 Facebook Fans Thank You Video                      |
+| 484 | Two Live Shows! [Jake and Amir Live in Boston Promo Video] |
+| 485 | The Bet                                                    |
++-----+------------------------------------------------------------+
+
+
+Problem: New episodes
+Solution: Add using New Script Uploader tool
+
+	Good Cop, Bad Cop,Yes,http://www.reddit.com/r/JakeAndAmirScripts/comments/1a1r1v/jake_and_amir_good_cop_bad_cop/,rollored, (no sql row, need to create)
+	Gay Marriage: http://www.reddit.com/r/JakeAndAmirScripts/comments/1c0evg/jake_and_amir_gay_marriage/ (no sql row, need to create)
+	Baby Bjorn - No SQL row
+	Fur - No SQL row
+	Gay Marriage - No SQL row
+	Instagram - No SQL row
+	Online Joke - No SQL row
+	Tiny Wings - No SQL row
+	Rick Fox 4 - No SQL row
+	Sick Day Part 3 - No SQL row
+	Rolex - No SQL row
+	March Madness Pt. 6 - No SQL row
+	Meeting Invitation - No SQL row
+	Movie Date 2 (with Ben Schwartz and Thomas Middleditch) - No SQL row
+
+
+Problem: scripts on the wiki
+Solution: Create new csv using these once they are off the wiki.
+	4th of July - wiki; ignored
+	Ace and Jocelyn - EPISODE 2! - wiki; ignored
+	Ace and Jocelyn - The TV Pilot - wiki; ignored
+	Airplane - wiki; ignored
+	Angry Birds - wiki; ignored
+	BattleShip - wiki; ignored
+	Blender - wiki; ignored
+	Bless You. (AKA: Lyrics Part Two) - wiki; ignored
+	Bomb Threat - wiki; ignored
+	Bowling for Soup - wiki; ignored
+	Breakfast - wiki; ignored
+	Brownies - wiki; ignored
+	Burp - wiki; ignored
+	Chat Roulette - wiki; ignored
+	Coma - wiki; ignored
+	Cousins - wiki; ignored
+	Desktop Prank - wiki; ignored
+	Double Date - wiki; ignored
+	eBay - wiki; ignored
+	Eighty Cents - wiki; ignored
+	Emails - wiki; ignored
+	For the Wolf Shirt - wiki; ignored
+	Girlfriend - wiki; ignored
+	Girlfriend Pt. 2 (Aragorn) - wiki; ignored
+	Girlfriend Pt. 3 (Kite) - wiki; ignored
+	Headset - wiki; ignored
+	Heavy Lifting - wiki; ignored
+	High School Friend - wiki; ignored
+	Hookah - wiki; ignored
+	Hospital - wiki; ignored
+	Icing - wiki; ignored
+	Jake's Twitter - wiki; ignored
+	Job - wiki; ignored
+	Keys - wiki; ignored
+	Kite - wiki; ignored
+	Kobayashi - wiki; ignored
+	Lunch Meeting - wiki; ignored
+	Make Believe - wiki; ignored
+	Making the Band. Perform. - wiki; ignored
+	Miami - wiki; ignored
+	Miami Part 2 (Driving) - wiki; ignored
+	Miami Part 3 (Bang Bus) - wiki; ignored
+	Mickey - wiki; ignored
+	Movie Debate - wiki; ignored
+	My Boy - wiki; ignored
+	New Computer - wiki; ignored
+	New Shirt - wiki; ignored
+	New Website - wiki; ignored
+	Normal Conversation - wiki; ignored
+	Nuggets - wiki; ignored
+	Office Fantasy (with Julia Allison) - wiki; ignored
+	Opposite Day - wiki; ignored
+	Party Planning - wiki; ignored
+	Realizations - wiki; ignored
+	Santa - wiki; ignored
+	Screen Name - wiki; ignored
+	Six Flags - wiki; ignored
