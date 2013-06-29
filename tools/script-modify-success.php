@@ -50,7 +50,7 @@
 				
 				echo $fakeQuery;
 				
-				$con=mysqli_connect("192.168.1.9", "mithos", "martel", "janda");
+				$con=mysqli_connect("mysql.jakeandamir.dreamhosters.com", "mithos", "martel1864", "janda");
 				if (mysqli_connect_errno($con))	{
 				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 				}
