@@ -194,17 +194,17 @@
 						
 						
 				echo $insertionQuery;
-				/*
+				
 				$con=mysqli_connect("mysql.jakeandamir.dreamhosters.com", "mithos", "martel1864", "janda");
 				if (mysqli_connect_errno($con))	{
 				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 				}
 				mysqli_query($con, "set names utf8");
-				mysqli_query($con, $updateQuery);
-				echo '<br>query completed'; */
+				mysqli_query($con, $insertionQuery);
+				echo '<br>query completed'; 
 				
 			} else {
-				echo "Error(s) detected. The script update will not continue until they are fixed. <br>";
+				echo "Error(s) detected. The extras creation will not continue until they are fixed. <br>";
 				printErrors($errors);					
 			}
 		}
