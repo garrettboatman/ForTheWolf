@@ -18,6 +18,12 @@
 		<a href="script-upload.php"> Back to uploader </a> <br/>
 	
 		<?php
+		$con=mysqli_connect("mysql.jakeandamir.dreamhosters.com", "mithos", "martel1864", "janda");
+		if (mysqli_connect_errno($con))	{
+		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		}
+		
+		
 		/*=================*
 		 *	    UPLOAD     *
 		 *=================*/
@@ -60,7 +66,7 @@
 				}
 				if(!empty($_POST["script"])) {
 					//nl2br = newline to break
-					$script = mysql_real_escape_string(nl2br($_POST["script"])) ;
+					$script = mysql_real_escape_string($con, nl2br($_POST["script"])) ;
 				} else {
 					array_push($errors, "script");
 				}				
@@ -89,10 +95,7 @@
 				
 				echo $fakeQuery;
 				
-				$con=mysqli_connect("mysql.jakeandamir.dreamhosters.com", "mithos", "martel1864", "janda");
-				if (mysqli_connect_errno($con))	{
-				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-				}
+				
 				mysqli_query($con, "set names utf8");
 				mysqli_query($con, $insertionQuery);
 				echo '<br>query completed';
@@ -121,7 +124,7 @@
 				}
 				if(!empty($_POST["new-script"])) {
 					//nl2br = newline to break
-					$script = mysql_real_escape_string(nl2br($_POST["new-script"])) ;
+					$script = mysql_real_escape_string($con, nl2br($_POST["new-script"])) ;
 				} else {
 					array_push($errors, "script");
 				}				
@@ -140,10 +143,7 @@
 				
 				echo $fakeQuery;
 				
-				$con=mysqli_connect("mysql.jakeandamir.dreamhosters.com", "mithos", "martel1864", "janda");
-				if (mysqli_connect_errno($con))	{
-				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-				}
+				
 				mysqli_query($con, "set names utf8");
 				mysqli_query($con, $updateQuery);
 				echo '<br>query completed';
@@ -174,7 +174,7 @@
 					array_push($errors, "name");
 				}				
 				if(!empty($_POST["link-extra"])) {
-					$link = mysql_real_escape_string($_POST["link-extra"]) ;
+					$link = mysql_real_escape_string($con, $_POST["link-extra"]) ;
 				} else {
 					array_push($errors, "link");
 				}				
@@ -195,10 +195,7 @@
 						
 				echo $insertionQuery;
 				
-				$con=mysqli_connect("mysql.jakeandamir.dreamhosters.com", "mithos", "martel1864", "janda");
-				if (mysqli_connect_errno($con))	{
-				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-				}
+				
 				mysqli_query($con, "set names utf8");
 				mysqli_query($con, $insertionQuery);
 				echo '<br>query completed'; 
