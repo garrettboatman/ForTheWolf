@@ -155,7 +155,7 @@ session_start();
 		</div>
 				
 				
-				<?php include "test-results.php"; ?>
+				<?php if(!empty($search)) { include "test-results.php"; }?>
 		<div id="footer-wrapper">
 			<div class="footer">
 				<div class="container">
