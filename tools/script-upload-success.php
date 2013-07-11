@@ -18,7 +18,10 @@
 		<a href="script-upload.php"> Back to uploader </a> <br/>
 	
 		<?php
-		$con=mysqli_connect("mysql.jakeandamir.dreamhosters.com", "mithos", "martel1864", "janda");
+		// $con=mysqli_connect("mysql.jakeandamir.dreamhosters.com", "mithos", "martel1864", "janda");
+		// Garrett's Local Setup:: 
+		$con=mysqli_connect("localhost", "root", "root", "janda");
+		
 		if (mysqli_connect_errno($con))	{
 		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}

@@ -603,6 +603,9 @@ background-image: linear-gradient(top, #324a80 0%, #375395 100%); /* gradient ov
 
 .episode-script-inner{
 	padding: 15px;
+	max-height: 500px;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 
 .episode-details tr td:last-child{
