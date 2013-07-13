@@ -1,3 +1,5 @@
+<META http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+
 <?php
 
 	function printErrors($array) {		
@@ -5,6 +7,22 @@
 		foreach ($array as $value) {
 			echo $value . ' ';
 		}	
+	}
+	
+	// Only use for scripts
+	function fixSpecialCharacters($script) {
+		
+		$newString = str_replace("’","'", $script );
+		$newString = str_replace("‘","'", $newString );
+		$newString = str_replace("…","...", $newString);
+		$newString = str_replace("–","-", $newString);
+		$newString = str_replace('“','"', $newString);
+		$newString = str_replace('”','"', $newString);
+		$newString = str_replace('é','e', $newString);
+		
+		$newString = utf8_encode(nl2br($newString));
+		return $newString;
+		
 	}
 
 ?>
@@ -23,134 +41,147 @@
 		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
 		
+		mysqli_query($con, "set names 'utf8'");
+		mb_internal_encoding('UTF-8');
+		mb_http_output('UTF-8');
+		mb_http_input('UTF-8');
 		
-		/*=================*
-		 *	    UPLOAD     *
-		 *=================*/
 		if(isset($_POST['script-upload'])) {
-		
-			$title = $link = $embedSrc = $duration = $airDate = $scribe = $script = "";
-			$errors = array();
+			/*=================*
+			 * NEW EPISODE UPLOAD *
+			 *=================*/
+			if(empty($_POST['id'])) {
 			
-			if($_SERVER["REQUEST_METHOD"] == "POST") {
-									
-				if(!empty($_POST["title"])) {
-					$title =  mysql_real_escape_string ( $_POST["title"] );
-				} else {
-					array_push($errors, "title");
-				}
-				if(!empty($_POST["link"])) {
-					$link =  mysql_real_escape_string ( $_POST["link"] );
-				} else {
-					array_push($errors, "link");
-				}
-				if(!empty($_POST["embed-src"])) {
-					$embedSrc =  mysql_real_escape_string ( $_POST["embed-src"] );
-				} else {
-					array_push($errors, "embed");
-				}
-				if(!empty($_POST["duration"])) {
-					$duration =  mysql_real_escape_string ($_POST["duration"] );
-				} else {
-					array_push($errors, "duration");
-				}
-				if(!empty($_POST["air-date"])) {
-					$airDate =  mysql_real_escape_string ($_POST["air-date"] );
-				} else {
-					array_push($errors, "air date");
-				}
-				if(!empty($_POST["scribe"])) {
-					$scribe =  mysql_real_escape_string ( $_POST["scribe"] );
-				} else {
-					array_push($errors, "scribe");
-				}
-				if(!empty($_POST["script"])) {
-					//nl2br = newline to break
-					$script = mysql_real_escape_string($con, nl2br($_POST["script"])) ;
-				} else {
-					array_push($errors, "script");
-				}				
-			}
-			
-			echo "title: " . $title . "<br>";
-			echo "link: " . $link . "<br>";
-			echo "embed src: " . $embedSrc . "<br>";
-			echo "duration: " . $duration . "<br>";
-			echo "air date: " . $airDate . "<br>";
-			echo "scribe: " . $scribe . "<br>";
-			echo '<textarea rows="20" cols="40" name="script-result">' . $script . '</textarea>';
-			
-			echo "<br>";
-			
-			if(empty($errors)){
-				echo "Running query: <br>";
+				$title = $link = $embedSrc = $duration = $airDate = $scribe = $script = "";
+				$errors = array();
 				
-				$insertionQuery = 'INSERT INTO episodes (title, link, embed_src, duration, air_date, scribe, script) 
-					VALUES ("' . $title . '", "' . $link . '", "' . $embedSrc . '", "' . $duration . '", "' 
-						. $airDate . '", "' . $scribe . '", "' . $script . '");';				
+				if($_SERVER["REQUEST_METHOD"] == "POST") {
+										
+					if(!empty($_POST["title"])) {
+						$title =  mysqli_real_escape_string($con, $_POST["title"] );
+					} else {
+						array_push($errors, "title");
+					}
+					if(!empty($_POST["link"])) {
+						$link =  mysqli_real_escape_string($con, $_POST["link"] );
+					} else {
+						array_push($errors, "link");
+					}
+					if(!empty($_POST["embed-src"])) {
+						$embedSrc =  mysqli_real_escape_string($con, $_POST["embed-src"] );
+					} else {
+						array_push($errors, "embed");
+					}
+					if(!empty($_POST["duration"])) {
+						$duration =  mysqli_real_escape_string($con, $_POST["duration"] );
+					} else {
+						array_push($errors, "duration");
+					}
+					if(!empty($_POST["air-date"])) {
+						$airDate =  mysqli_real_escape_string($con, $_POST["air-date"] );
+					} else {
+						array_push($errors, "air date");
+					}
+					if(!empty($_POST["scribe"])) {
+						$scribe =  mysqli_real_escape_string($con, $_POST["scribe"] );
+					} else {
+						array_push($errors, "scribe");
+					}
+					if(!empty($_POST["script"])) {
+						$script = mysqli_real_escape_string($con, fixSpecialCharacters($_POST["script"]));
+					} else {
+						array_push($errors, "script");
+					}				
+				}
+				
+				echo "title: " . $title . "<br>";
+				echo "link: " . $link . "<br>";
+				echo "embed src: " . $embedSrc . "<br>";
+				echo "duration: " . $duration . "<br>";
+				echo "air date: " . $airDate . "<br>";
+				echo "scribe: " . $scribe . "<br>";
+				echo '<textarea rows="20" cols="40" name="script-result">' . $script . '</textarea>';
+				
+				echo "<br>";
+				
+				if(empty($errors)){
+					echo "Running query: <br>";
+					
+					$insertionQuery = 'INSERT INTO episodes (title, link, embed_src, duration, air_date, scribe, script) 
+						VALUES ("' . $title . '", "' . $link . '", "' . $embedSrc . '", "' . $duration . '", "' 
+							. $airDate . '", "' . $scribe . '", "' . $script . '");';				
 
-				$fakeQuery = 'INSERT INTO episodes (title, link, embed_src, duration, air_date, scribe, script) 
-					VALUES ("' . $title . '", "' . $link . '", "' . $embedSrc . '", "' . $duration . '", "' 
-						. $airDate . '", "' . $scribe . '", [script goes here]);';				
-				
-				echo $fakeQuery;
-				
-				
-				mysqli_query($con, "set names utf8");
-				mysqli_query($con, $insertionQuery);
-				echo '<br>query completed';
-				
-			} else {
-				echo "Error(s) detected. The script insertion will not continue until they are fixed. <br>";
-				printErrors($errors);					
-			}
-			
-		}
-		
-		/*=================*
-		 *	    Modify     *
-		 *=================*/
-		else if (isset($_POST['script-modify'])) {
-			$id = $script = "";
-			$errors = array();
-			
-			if($_SERVER["REQUEST_METHOD"] == "POST") {
-									
-				
-				if(!empty($_POST["id"])) {
-					$id =  mysql_real_escape_string ( $_POST["id"] );
+					$fakeQuery = 'INSERT INTO episodes (title, link, embed_src, duration, air_date, scribe, script) 
+						VALUES ("' . $title . '", "' . $link . '", "' . $embedSrc . '", "' . $duration . '", "' 
+							. $airDate . '", "' . $scribe . '", [script goes here]);';				
+					
+					echo $fakeQuery;
+					
+					mysqli_query($con, $insertionQuery);
+					echo '<br>query completed';
+					
 				} else {
-					array_push($errors, "id");
+					echo "Error(s) detected -- you're missing some fields. The episode creation will not continue until the fields listed
+					 are added: <br>";
+					printErrors($errors);					
 				}
-				if(!empty($_POST["new-script"])) {
-					//nl2br = newline to break
-					$script = mysql_real_escape_string($con, nl2br($_POST["new-script"])) ;
-				} else {
-					array_push($errors, "script");
-				}				
+				
 			}
 			
-			echo "id: " . $id . "<br>";
-			echo '<textarea rows="20" cols="40" name="script-result">' . $script . '</textarea>';
+			/*=================*
+			 *	    Modify     *
+			 *=================*/
+			else {
 			
-			echo "<br>";
-			
-			if(empty($errors)){
-				echo "Running query: <br>";
+				$id = $_POST["id"];
 				
-				$updateQuery = 'UPDATE episodes SET script="' . $script . '" WHERE id=' . $id . ';';			
-				$fakeQuery = 'UPDATE episodes SET script="' . '[script]' . '" WHERE id=' . $id . ';';
+				if($_SERVER["REQUEST_METHOD"] == "POST") {
+					
+					echo "Running update query... <br>";
+					
+					mysqli_query($con, "set names utf8");
+					
+					if(!empty($_POST["title"])) {
+						$title =  mysqli_real_escape_string($con, $_POST["title"] );
+						$updateQuery = 'UPDATE episodes SET title="' . $title . '" WHERE id=' . $id . ';';
+						mysqli_query($con, $updateQuery);
+					}
+					if(!empty($_POST["link"])) {
+						$link =  mysqli_real_escape_string($con, $_POST["link"] );
+						$updateQuery = 'UPDATE episodes SET link="' . $link . '" WHERE id=' . $id . ';';
+						mysqli_query($con, $updateQuery);
+					} 
+					if(!empty($_POST["embed-src"])) {
+						$embedSrc =  mysqli_real_escape_string($con, $_POST["embed-src"] );
+						$updateQuery = 'UPDATE episodes SET embed_src="' . $embedSrc . '" WHERE id=' . $id . ';';
+						mysqli_query($con, $updateQuery);
+					}
+					if(!empty($_POST["duration"])) {
+						$duration =  mysqli_real_escape_string($con, $_POST["duration"] );
+						$updateQuery = 'UPDATE episodes SET duration="' . $duration . '" WHERE id=' . $id . ';';
+						mysqli_query($con, $updateQuery);
+					}
+					if(!empty($_POST["air-date"])) {
+						$airDate =  mysqli_real_escape_string($con, $_POST["air-date"] );
+						$updateQuery = 'UPDATE episodes SET air_date="' . $airDate . '" WHERE id=' . $id . ';';
+						mysqli_query($con, $updateQuery);
+					}
+					if(!empty($_POST["scribe"])) {
+						$scribe =  mysqli_real_escape_string($con, $_POST["scribe"] );
+						$updateQuery = 'UPDATE episodes SET scribe="' . $scribe . '" WHERE id=' . $id . ';';
+						mysqli_query($con, $updateQuery);
+					}				
+					if(!empty($_POST["script"])) {
+						$script = mysqli_real_escape_string($con, fixSpecialCharacters($_POST["script"]));					
+						$updateQuery = 'UPDATE episodes SET script="' . $script . '" WHERE id=' . $id . ';';
+						mysqli_query($con, $updateQuery);
+					}			
+				}
 				
-				echo $fakeQuery;
+				echo "<br>";
+				echo '<br>Query completed. Check the database to confirm your results. If you fucked up, you can always run a new update query.';
+					
 				
-				
-				mysqli_query($con, "set names utf8");
-				mysqli_query($con, $updateQuery);
-				echo '<br>query completed';
-				
-			} else {
-				echo "Error(s) detected. The script update will not continue until they are fixed. <br>";
-				printErrors($errors);					
 			}
 		}
 		/*=================*
@@ -164,17 +195,17 @@
 									
 				
 				if(!empty($_POST["id-extra"])) {
-					$id =  mysql_real_escape_string ( $_POST["id-extra"] );
+					$id =  mysqli_real_escape_string($con, $_POST["id-extra"] );
 				} else {
 					array_push($errors, "id");
 				}				
 				if(!empty($_POST["name-extra"])) {
-					$name =  mysql_real_escape_string ( $_POST["name-extra"] );
+					$name =  mysqli_real_escape_string($con, $_POST["name-extra"] );
 				} else {
 					array_push($errors, "name");
 				}				
 				if(!empty($_POST["link-extra"])) {
-					$link = mysql_real_escape_string($con, $_POST["link-extra"]) ;
+					$link = mysqli_real_escape_string($con, $_POST["link-extra"]) ;
 				} else {
 					array_push($errors, "link");
 				}				
@@ -201,10 +232,12 @@
 				echo '<br>query completed'; 
 				
 			} else {
-				echo "Error(s) detected. The extras creation will not continue until they are fixed. <br>";
+				echo "Error(s) detected -- you're missing some fields. The extras creation will not continue until the fields listed
+					 are added. <br>";
 				printErrors($errors);					
 			}
 		}
+		
 				
 		?>
 		
