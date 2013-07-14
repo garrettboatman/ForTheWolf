@@ -1,42 +1,5 @@
 <?php
 
-//class="expando"
-
-//need to add proper doctype, consider getting it audited.
-
-// select title, (select name from extras e where e.episode_id = ep.id) as name from episodes ep;
-
-
-//temp notes:
-/*
-
-$ sudo vim /etc/mysql/my.cnf
-	bind-address = 0.0.0.0
-
-$ sudo service mysql restart
-
-mysql> CREATE USER 'mithos'@'localhost' IDENTIFIED BY 'martel';
-
-mysql> GRANT ALL PRIVILEGES ON *.* TO 'mithos'@'%' IDENTIFIED BY 'martel' WITH GRANT OPTION;
-mysql> FLUSH PRIVILEGES;
-
-mysql> SELECT user from mysql.user;
-
-$ sudo mysql
-
-
-import MySQLdb
-con = MySQLdb.connect(host="192.168.1.20", user="mithos", passwd="martel", db="janda")
-cursor = con.cursor()
-cursor.execute('ALTER table extras drop foreign key extras_ibfk_1')
-con.commit()
-
-
-
-<div style="clear:both; width:99%; padding:5px; border:2px solid #000000; background-color:white">
-
- */
-
 require "php/functions.php"; 
 
 session_start();
@@ -175,11 +138,17 @@ session_start();
 	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 	<!-- Development JS -->
 	<script type="text/javascript" src="js/bootstrap.js"></script> 
-	
+	<script type="text/javascript" src="js/jquery.highlight-4.js"></script>
 	<script type="text/javascript" src="js/modernizr.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 	
 	<script>
 		 $('.info').popover();
+		 
+		 // Highlight the search terms if not searching just title
+		 <?php if(empty($titleOnly)) {
+			for ($i = 0; $i < $searchLength; $i++) { ?>
+			$('.episode-script-inner').highlight("<?php echo $search[$i];?>");
+		<?php } } ?>
 	</script>
 </html>

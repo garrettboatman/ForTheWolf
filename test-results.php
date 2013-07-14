@@ -207,7 +207,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>						
 						</article>										
 						<?php
 							} //end row iteration
