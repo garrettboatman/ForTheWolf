@@ -102,7 +102,11 @@ session_start();
 				</div>
 			</div>
 		</div>
-		<a class="info" data-original-title="Oh sheesh, y'all!" data-toggle="popover" data-html="true" data-placement="left" data-content="This site was developed by die hard J&A fans Christopher Chu and <a href='http://www.garrettboatman.com'>Garrett Boatman</a>.<br><br> Huge thanks to Amir and <a href='http://www.reddit.com/r/jakeandamir'>/r/JakeandAmir</a> for helping make this come together!<br><br><a href='https://github.com/garrettboatman/ForTheWolf/'><img src='img/GitHub_Logo.png'></a><br> <br>See some issues or have some feedback? <br> <a href='mailto:hello@garrettboatman.com?subject=JakeandAmir Episode Archive'>Let us know!</a>" title=""> <span class="profileinfo"></span></a>
+		<a class="info" data-original-title="Oh sheesh, y'all!" data-toggle="popover" data-html="true" data-placement="left" data-content="This site was developed by die hard J&A fans Christopher Chu and <a href='http://www.garrettboatman.com'>Garrett Boatman</a>.<br><br> Huge thanks to Amir and <a href='http://www.reddit.com/r/jakeandamir'>/r/JakeandAmir</a> for helping make this come together!<br> <br>See some issues or have some feedback? <br> <a href='mailto:hello@garrettboatman.com?subject=JakeandAmir Episode Archive'>Let us know!</a>" title=""> <span class="profileinfo"></span></a>
+		
+		<!-- "Fork us on Git" -->
+		<!-- <a href='https://github.com/garrettboatman/ForTheWolf/'><img src='img/GitHub_Logo.png'></a> -->
+		 
 	</body>
 	
 	
