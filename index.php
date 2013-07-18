@@ -1,12 +1,7 @@
 <?php
 
 require "php/functions.php"; 
-
 session_start();
-
-//$_SESSION['cart'] = array(); //contains all items
-//echo $_SERVER['PHP_SELF'];
-
 
 ?>
 
@@ -74,8 +69,7 @@ session_start();
 								<label for="search-terms-bar" class="ie">Search any phrase...</label>
 								<input id="search-terms-bar" class="default-text" type="text" name="search" value="<?php printSearchTerms($search); ?>" autocomplete="off" placeholder="Search any phrase..." >
 								<button class="search-button" type="submit"><span class="profilesearch"></span></button>											<a class="button advanced-button">Advanced Options</a>
-								
-								<!-- TODO New Advanced Options -->
+
 								<div id="advanced-options">
 									<input id="title" type="checkbox" name="title-only"><label for="title">Episode Title</label>
 									<input id="phrase" type="checkbox" name="exact-phrase"><label for="phrase">Exact Phrase</label>
@@ -84,32 +78,10 @@ session_start();
 										<input autocomplete="off" id="range-start" class="range datepicker" placeholder="Start Date" type="text" name="from-date" />
 										<span class="range-label"> to </span>
 										<input autocomplete="off" id="range-end"  class="range datepicker" placeholder="End Date" type="text" name="to-date" />
+										<input type="hidden" name="do-search" value="1">
 									</div>
 								</div>
-								<!-- END New Advanced Options -->
-								
-								<!-- TODO Old ADVANCED OPTIONS -->
-								<div id="advanced-options">
-									<div>
-										<input id="exact-phrase-bar" class="default-text"  type="text" name="exact-phrase-old"
-											value="<?php echo $exactPhrase;?>" autocomplete="off" />
-									</div>
-									<div id="title-only" class="advanced-option-box">
-										<input id="title-only-checkbox" type="checkbox" name="title-only-old" <?php echo $titleOnly;?> />
-										<label for="title-only-checkbox"> Search by title only</label>
-									</div>
-									<div id="date-pickers" class="advanced-option-box">
-										<label>Between</label> <input id="from-date" class="date-input" type="text" value="<?php echo $fromDate;?>" />
-										<label>and</label> <input id="to-date" class="date-input" type="text" value="<?php echo $toDate?>" />
-									</div>
-								</div>
-								<div class="submit-container">
-									<input type="hidden" name="do-search" value="1">
-									<!-- <button id="advanced-options-button" class="form-button" type="button">Advanced Options &#9660;</button>								
-									<input id="submit-search" class="form-button" type="submit" />
-									<button id="clear-all-button" class="form-button" type="button"> Clear All </button> -->
-								</div>
-								<!-- END Old ADVANCED OPTIONS -->
+							
 							</form>
 						</div>
 					</div>
@@ -117,8 +89,8 @@ session_start();
 			</div>
 		</div>
 				
-				
-				<?php if(!empty($search)) { include "test-results.php"; }?>
+		<?php if(!empty($search)) { include "test-results.php"; }?>
+		
 		<div id="footer-wrapper">
 			<div class="footer">
 				<div class="container">
@@ -146,6 +118,7 @@ session_start();
 		 $('.info').popover();
 		 
 		 // Highlight the search terms if not searching just title
+		 // WARNING: Disgraceful mixing 
 		 <?php if(empty($titleOnly)) {
 			for ($i = 0; $i < $searchLength; $i++) { ?>
 			$('.episode-script-inner').highlight("<?php echo $search[$i];?>");
