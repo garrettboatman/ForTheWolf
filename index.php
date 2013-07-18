@@ -20,7 +20,16 @@ session_start();
 		<!-- IE -->
 		<!--[if lte IE 10]<link href="css/ie.css" rel="stylesheet"><![endif]-->
 
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 		
+		  ga('create', 'UA-42563448-1', 'jakeandamir.dreamhosters.com');
+		  ga('send', 'pageview');
+		
+		</script>
 	</head>
 	<body class="preload">
 		<div class="site_info"></div>
@@ -102,7 +111,11 @@ session_start();
 				</div>
 			</div>
 		</div>
-		<a class="info" data-original-title="Oh sheesh, y'all!" data-toggle="popover" data-html="true" data-placement="left" data-content="This site was developed by die hard J&A fans Christopher Chu and <a href='http://www.garrettboatman.com'>Garrett Boatman</a>.<br><br> Huge thanks to Amir and <a href='http://www.reddit.com/r/jakeandamir'>/r/JakeandAmir</a> for helping make this come together!<br><br><a href='https://github.com/garrettboatman/ForTheWolf/'><img src='img/GitHub_Logo.png'></a><br> <br>See some issues or have some feedback? <br> <a href='mailto:hello@garrettboatman.com?subject=JakeandAmir Episode Archive'>Let us know!</a>" title=""> <span class="profileinfo"></span></a>
+		<a class="info" data-original-title="Oh sheesh, y'all!" data-toggle="popover" data-html="true" data-placement="left" data-content="This site was developed by die hard J&A fans Christopher Chu and <a href='http://www.garrettboatman.com'>Garrett Boatman</a>.<br><br> Huge thanks to Amir and <a href='http://www.reddit.com/r/jakeandamir'>/r/JakeandAmir</a> for helping make this come together!<br> <br>See some issues or have some feedback? <br> <a href='mailto:hello@garrettboatman.com?subject=JakeandAmir Episode Archive'>Let us know!</a>" title=""> <span class="profileinfo"></span></a>
+		
+		<!-- "Fork us on Git" -->
+		<!-- <a href='https://github.com/garrettboatman/ForTheWolf/'><img src='img/GitHub_Logo.png'></a> -->
+		 
 	</body>
 	
 	
