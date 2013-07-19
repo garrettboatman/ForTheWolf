@@ -90,7 +90,6 @@ session_start();
 										<input type="hidden" name="do-search" value="1">
 									</div>
 								</div>
-							
 							</form>
 						</div>
 					</div>
