@@ -1,5 +1,4 @@
 <?php if(isset($_GET['do-search']) || isset($_GET['single-episode'])) { //a request was made to display results ?>
-				
 		<div id="body_wrapper">
 			<div class="container">
 				<div class="row-fluid">
@@ -58,9 +57,35 @@
 								// Build the title search terms
 								$titleQuery = "SELECT * from episodes WHERE ((";
 								$scriptQuery = "";							
-                $dateQuery = "";
+               					$dateQuery = "";
+               					$orderBy = "ORDER BY air_date ASC"; //by default sort by air date
 								$searchLength = count($search);
+							
+								//set default sort button values
+								$newSortTypeTitle = "title-desc";
+								$newSortTypeAirDate = "air-date-asc";
+								//set sort order
+								if(!empty($sortType)){
 								
+									if($sortType == "title-asc"){
+										$orderBy = "ORDER BY title ASC";
+										$newSortTypeTitle = "title-desc";
+									}
+									else if($sortType == "title-desc"){
+										$orderBy = "ORDER BY title DESC";
+										$newSortTypeTitle = "title-asc";
+									}
+									else if ($sortType == "air-date-asc"){
+										$orderBy = "ORDER BY air_date ASC";
+										$newSortTypeAirDate = "air-date-desc";
+									}
+									else if ($sortType == "air-date-desc"){
+										$orderBy = "ORDER BY air_date DESC";
+										$newSortTypeAirDate = "air-date-asc";
+									}
+								} else {$sortType = "title-asc";}
+								
+								// Construct query
 								if( isset($search) && $searchLength > 0){
 									// construct title query
 									for ($i = 0; $i < $searchLength; $i++) {
@@ -90,15 +115,36 @@
 									}
 
 									if(!empty($toDate) && !empty($fromDate)) {
-                    $dateQuery = " AND (air_date <='". $toDate ."' AND air_date >= '" . $fromDate . "') ORDER BY air_date ASC";
-
-                  }
-								$fullQuery = $titleQuery . "" . $scriptQuery . "" . $dateQuery . ";"; //may not need semicolon
+                    					$dateQuery = " AND (air_date <='". $toDate ."' AND air_date >= '" . $fromDate . "')";
+                  					}
+								$fullQuery = $titleQuery . "" . $scriptQuery . "" . $dateQuery . "" . $orderBy . ";"; //may not need semicolon
 								
 								}								
 								
 							}
+							echo $orderBy;
 							?>
+							<?php 
+							//clear old sort type
+							$sortTypeUrl = preg_replace('/&?sort-type=[^&]*/', '', $_SERVER['REQUEST_URI']);
+							?>
+						
+							<button id="sort-by-title" value="<?php echo $newSortTypeTitle;?>" type="submit">Title</button>
+							<button id="sort-by-air-date" value="<?php echo $newSortTypeAirDate;?>" type="submit">Air Date</button>
+							
+							<script>
+							/* bind sort button click events */
+							$(document).ready(function(){
+								$('#sort-by-title').click(function(){
+									window.location.href = '<?php echo $sortTypeUrl . "&sort-type=" . $newSortTypeTitle; ?>';
+								});
+								
+								$('#sort-by-air-date').click(function(){
+									window.location.href = '<?php echo $sortTypeUrl . "&sort-type=" . $newSortTypeAirDate; ?>';
+								});
+							});
+							</script>
+
 							<script>console.log('<?php echo $fullQuery; ?>');</script>
 							
 							<?php
