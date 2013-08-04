@@ -14,6 +14,10 @@
 
 /* Custom CSS (http://www.garrettboatman.com/) */
 
+.advanced-info{
+	color: #989898 !important;
+}
+
 .info{position: absolute;
 	right: 20px;
 	top: 20px;
@@ -152,7 +156,7 @@ body{
 }
 
 .bebas{
-	font-family: 'BebasRegular';
+	font-family: 'bebas_neueregular';
 	word-spacing: 5px;
 }
 
@@ -168,15 +172,15 @@ body{
 #search-terms-bar{
 	width: 100%;
 	line-height: 37px;
-	font-family: 'BebasRegular';
+	font-family: 'bebas_neueregular';
 	overflow: visible;
 	word-spacing: 5px;
 	color: #636363;
-	padding: 10px 80px 12px 20px;
+	padding: 10px 80px 8px 20px;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	font-size: 30px;
+	font-size: 40px;
 	border: 1px solid rgba(203,203,203,.2);
 	-moz-border-radius: 35px;
 	-webkit-border-radius: 35px;
@@ -269,11 +273,6 @@ input.range{
 	border-radius: 5px;
 }
 
-input#title::-webkit-input-placeholder {}
-input#title:-moz-placeholder {}
-input#title::-moz-placeholder {}
-input#title:-ms-input-placeholder {}
-
 .range-label{
 	color: #fff;
 	text-shadow: 1px 1px 0 rgba(0,0,0,.42);
@@ -297,7 +296,7 @@ input[type=checkbox] + label{background-position: 0px -58px;}
 input[type=checkbox]:checked + label{background-position: 0px -106px;}
 input[type=checkbox] + label:active{background-position: 0px -83px;}
 
-input::-webkit-input-placeholder {color: #d2d2d2;}
+input::-webkit-input-placeholder {color: #d2d2d2;line-height: 1.1em;}
 input:-moz-placeholder { /* Firefox 18- */color: #d2d2d2; }
 input::-moz-placeholder {  /* Firefox 19+ */color: #d2d2d2;  }
 input:-ms-input-placeholder {  color: #d2d2d2;  }
@@ -308,16 +307,39 @@ input:-ms-input-placeholder {  color: #d2d2d2;  }
 .body_wrapper{}
 
 .results-wrapper{
-	font-size: 35px;
+	font-size: 45px;
 	line-height: 1em;
-	padding: 15px 0px;
+	margin: 15px 0px;
 	text-align: center;
+	position: relative;
 }
 
-.results-number, .search-string{
+.results-number, .search-string, .results-wrapper{
 	color: #636363;
-	font-family: 'BebasRegular';
+	font-family: 'bebas_neueregular';
 	word-spacing: 5px;
+}
+
+.search-string{
+	color: #ff9c00;
+}
+
+.sorter{
+	font-size: 18px;
+	line-height: 1em;
+	background: none;
+	border: none;
+	font-family: 'bebas_neueregular';
+	color: #a4a4a4;
+	width: 120px;
+	padding-left: 20px;
+}
+
+.sorter-buttons{
+	display: block;
+	position: absolute;
+	top:0;
+	right: 0;	
 }
 
 
@@ -432,11 +454,12 @@ table.episode-header-inner{
 
 .header-inner-title{
 	color: #ff9c00;
-	font-family: 'BebasRegular';
+	font-family: 'bebas_neueregular';
 	word-spacing: 5px;
-	font-size: 30px;
+	font-size: 40px;
 	line-height: 34px;
 	vertical-align: middle;
+	padding-top: 5px;
 }
 
 .header-inner-calendar{
@@ -1548,7 +1571,7 @@ a:focus {
   padding: 8px 14px;
   font-size: 20px;
   font-weight: normal;
-  font-family: 'BebasRegular';
+  font-family: 'bebas_neueregular';
   word-spacing: 3px;
   line-height: 18px;
   background-color: #f7f7f7;
@@ -1922,6 +1945,17 @@ button.close {
 /* Phone CSS */
 
 @media (max-width: 767px) {
+ 
+ .sorter-buttons{
+	 float: none;
+	 margin-top: 10px;
+	 position: relative;
+ }
+ 
+ .sorter{
+	 width: 100px;
+	 padding: 5px 10px;
+ }
  
  .datepicker:last-child{
 	 left: 100px !important;

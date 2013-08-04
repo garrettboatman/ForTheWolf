@@ -3,19 +3,17 @@
 			<div class="container">
 				<div class="row-fluid">
 					<div class="results-wrapper span12">
-						Showing <span class="results-number"><!-- TODO: Results --></span> Results for 
+						<span class="results-number"><!-- TODO: Results --></span> Searched : 
 						<span class="search-string">
-							" <?php printSearchTerms(array_unique($search)); echo $searchErr ?>"
+							<?php printSearchTerms(array_unique($search)); echo $searchErr ?>
 						</span>
+						<span class="advanced-info">
 						<?php
-						if(!empty($exactPhrase)) echo 'Exact phrase enabled <br>';
-						if(!empty($titleOnly)) echo "Search limited to title only <br>";  
+						if(!empty($exactPhrase)) echo 'Exact phrase';
+						if(!empty($titleOnly)) echo "Title only <br>";  
 						if(!empty($fromDate) && !empty($toDate)) echo 'Between ' . $fromDate . ' and ' . $toDate .'<br>';
 						?>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="episodes-wrapper span12">	
+						</span>
 						<?php
 							// Create connection
 							
@@ -122,15 +120,38 @@
 								}								
 								
 							}
-							echo $orderBy;
+							// echo $orderBy;
 							?>
 							<?php 
 							//clear old sort type
 							$sortTypeUrl = preg_replace('/&?sort-type=[^&]*/', '', $_SERVER['REQUEST_URI']);
 							?>
-						
-							<button id="sort-by-title" value="<?php echo $newSortTypeTitle;?>" type="submit">Title</button>
-							<button id="sort-by-air-date" value="<?php echo $newSortTypeAirDate;?>" type="submit">Air Date</button>
+							
+							
+							
+							
+							
+							<div class="sorter-buttons">
+							<button class="sorter button" id="sort-by-title" value="<?php echo $newSortTypeTitle;?>" type="submit">Title </button>
+							<button class="sorter button" id="sort-by-air-date" value="<?php echo $newSortTypeAirDate;?>" type="submit"><span class="darr"></span>Date</button>
+							</div>
+							
+							
+							
+							<?php $sortType = $_GET['sort-type']; ?>
+							
+							<?php if ($sortType == 'title-asc'){ ?>
+								<script> $('#sort-by-title').prepend('&darr; '); </script>
+							<?php } elseif($sortType == 'title-desc') {?>
+								<script> $('#sort-by-title').prepend('&uarr; '); </script>
+
+							<?php } elseif($sortType == 'air-date-asc') {?>
+								<script> $('#sort-by-air-date').prepend('&darr; '); </script>
+							<?php } elseif($sortType == 'air-date-desc') {?>
+								<script> $('#sort-by-air-date').prepend('&uarr; '); </script>
+							<?php } else { ?>
+								<script> $('#sort-by-air-date').prepend('&darr; '); </script>
+							<?php } ?>
 							
 							<script>
 							/* bind sort button click events */
@@ -146,7 +167,10 @@
 							</script>
 
 							<script>console.log('<?php echo $fullQuery; ?>');</script>
-							
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="episodes-wrapper span12">	
 							<?php
 							//execute the SQL query and return records
 							$result = mysqli_query($con, $fullQuery);
