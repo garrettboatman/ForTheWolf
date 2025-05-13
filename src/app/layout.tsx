@@ -37,12 +37,21 @@ export const metadata: Metadata = {
       "Script Archive/Database project for all JakeandAmir.com episodes",
     siteName: "Jake & Amir Script Archive",
     type: "website",
+    images: [
+      {
+        url: '/jna-intro.jpg',
+        width: 800,
+        height: 600,
+        alt: 'Jake and Amir - Script Archive',
+      }
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Jake & Amir | Script Archive",
     description:
       "Script Archive/Database project for all JakeandAmir.com episodes",
+    images: ['/jna-intro.jpg'],
   },
   robots: {
     index: true,
