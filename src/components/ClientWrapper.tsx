@@ -23,7 +23,6 @@ export default function ClientWrapper() {
         setQuery={setQuery}
         isLoading={isLoading}
       />
-      
       <div className="mt-6">
         <EpisodeList
           results={results}

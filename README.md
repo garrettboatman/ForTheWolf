@@ -2,14 +2,6 @@
 
 A searchable archive of Jake and Amir episodes, built with Next.js.
 
-## Features
-
-- Episode search with fuzzy matching
-- Advanced search options:
-  - Exact phrase search
-  - Episode title search
-- Episode listing with links to watch
-
 ## Data
 
 Episode data is stored in `/public/jnapi-episodes.json`. The data includes:
@@ -26,7 +18,7 @@ Episode data is stored in `/public/jnapi-episodes.json`. The data includes:
 
 ## Getting Started
 
-First, clone, install, and then run the development server:
+Clone, install, and then run the development server:
 
 ```bash
 npm install
@@ -40,9 +32,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Technologies Used
 
-- [Next.js](https://nextjs.org)
+- [NextJS](https://nextjs.org)
 - [React](https://reactjs.org)
-- [Tailwind CSS](https://tailwindcss.com) - For styling
+- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS
+- [Radix UI](https://www.radix-ui.com/) - Unstyled, accessible components
+- [shadcn/ui](https://ui.shadcn.com/) - Radix components
+- [Lucide React](https://lucide.dev/) - Icons
 
 ## How It Works
 
