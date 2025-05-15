@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Anonymous_Pro } from "next/font/google";
 import "./globals.css";
+import { PostHogProvider } from "@/app/providers/PosthogProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,11 +40,11 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: '/jna-intro.jpg',
+        url: "/jna-intro.jpg",
         width: 800,
         height: 600,
-        alt: 'Jake and Amir - Script Archive',
-      }
+        alt: "Jake and Amir - Script Archive",
+      },
     ],
   },
   twitter: {
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
     title: "Jake & Amir | Script Archive",
     description:
       "Script Archive/Database project for all JakeandAmir.com episodes",
-    images: ['/jna-intro.jpg'],
+    images: ["/jna-intro.jpg"],
   },
   robots: {
     index: true,
@@ -71,7 +72,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${anonymousPro.variable} antialiased`}
       >
-        {children}
+        <PostHogProvider>{children}</PostHogProvider>
         <div className="bg-white text-center py-2">
           © 2013 | All videos owned by{" "}
           <a
