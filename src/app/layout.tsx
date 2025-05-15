@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Anonymous_Pro } from "next/font/google";
 import "./globals.css";
-import { PostHogProvider } from "@/app/providers/PosthogProvider";
+import { PostHogProvider } from "@/app/providers/PostHogProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
