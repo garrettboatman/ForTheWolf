@@ -2,7 +2,7 @@ export interface Episode {
   id: number;
   title: string;
   link: string;
-  script: string;
+  search: string;
   duration: string;
   air_date: string;
   scribe?: string;

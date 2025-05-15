@@ -246,7 +246,7 @@ export async function GET(request: NextRequest) {
   try {
     // Get query parameters
     const searchParams = request.nextUrl.searchParams;
-    const query = searchParams.get("query") || "";
+    const query = searchParams.get("search") || "";
     const exactPhrase = searchParams.get("exactPhrase") === "true";
     const searchTitle = searchParams.get("searchTitle") === "true";
     const limit = parseInt(searchParams.get("limit") || "50", 10);

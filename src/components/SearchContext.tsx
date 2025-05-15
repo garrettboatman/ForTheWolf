@@ -76,7 +76,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   // Effect to load initial search from URL parameters
   useEffect(() => {
-    const queryParam = searchParams.get("query") || "";
+    const queryParam = searchParams.get("search") || "";
     setQuery(queryParam);
 
     // Reset pagination state when URL changes
@@ -88,7 +88,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
         setIsLoading(true);
         try {
           const params = new URLSearchParams();
-          if (queryParam.trim()) params.append("query", queryParam);
+          if (queryParam.trim()) params.append("search", queryParam);
           params.append("exactPhrase", "true"); // Always use exact phrase
           params.append("limit", "50"); // Always load 50 at a time
           params.append("offset", "0"); // Explicitly set offset to 0
@@ -131,7 +131,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
     try {
       // Build the API URL with query parameters
       const params = new URLSearchParams();
-      if (query.trim()) params.append("query", query);
+      if (query.trim()) params.append("search", query);
       params.append("exactPhrase", "true"); // Always use exact phrase
       params.append("limit", "50"); // Always load 50 at a time
       params.append("offset", "0"); // Explicitly set offset to 0
@@ -165,7 +165,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
     try {
       const params = new URLSearchParams();
-      if (query.trim()) params.append("query", query);
+      if (query.trim()) params.append("search", query);
       params.append("exactPhrase", "true"); // Always use exact phrase
       params.append("limit", "50"); // Explicitly set to 50 to ensure consistency
       params.append("offset", newOffset.toString());
