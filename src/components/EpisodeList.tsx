@@ -21,7 +21,7 @@ export default function EpisodeList({
   if (isLoading && results.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-gray-600">Loading episodes...</p>
+        <p className="text-gray-600">Searching...</p>
       </div>
     );
   }

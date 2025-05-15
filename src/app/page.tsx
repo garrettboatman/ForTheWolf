@@ -3,7 +3,8 @@ import { SearchProvider } from "@/components/SearchContext";
 import ClientWrapper from "@/components/ClientWrapper";
 import Image from "next/image";
 import IntroImage from "../../public/jna-intro.jpg";
-import { InfoTooltip } from "@/components/ui/InfoTooltip";
+import { Tip } from "@/components/Tooltip";
+import { InfoIcon } from "lucide-react";
 
 export default function Home() {
   return (
@@ -17,9 +18,12 @@ export default function Home() {
             className="rounded-3xl"
           />
           <div className="absolute bottom-0 right-0">
-            <InfoTooltip
-              text={
-                <>
+            <Tip
+              className={
+                "relative top-[1px] p-4 block width items-center focus:outline-none"
+              }
+              content={
+                <div className="max-w-[300px] p-4">
                   Developed by{" "}
                   <a
                     className="text-medium underline"
@@ -47,10 +51,15 @@ export default function Home() {
                   >
                     Github Project
                   </a>
-                </>
+                </div>
               }
-              className="relative top-[1px]"
-            />
+            >
+              <InfoIcon
+                size={40}
+                fill="white"
+                className="text-orange-500 hover:text-orange-600"
+              />
+            </Tip>
           </div>
         </div>
         <h1 className="text-3xl mt-6 font-bold text-center mb-16 font-['Anonymous_Pro']">
