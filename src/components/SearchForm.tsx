@@ -1,5 +1,6 @@
 "use client";
 
+import { usePostHog } from "posthog-js/react";
 import { useState, useEffect } from "react";
 
 interface SearchFormProps {
@@ -16,6 +17,7 @@ export default function SearchForm({
   isLoading,
 }: SearchFormProps) {
   const [localQuery, setLocalQuery] = useState(initialQuery);
+  const posthog = usePostHog();
 
   // Sync local query with parent state
   useEffect(() => {
@@ -26,6 +28,7 @@ export default function SearchForm({
     const newQuery = e.target.value;
     setLocalQuery(newQuery);
     setQuery(newQuery);
+    posthog.capture("searched", { query: newQuery });
   };
 
   return (
