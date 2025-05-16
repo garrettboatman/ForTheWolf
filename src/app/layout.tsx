@@ -58,7 +58,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  themeColor: "#f97316", // Orange color
   applicationName: "Jake & Amir Script Archive",
 };
 

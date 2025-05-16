@@ -119,7 +119,8 @@ export function SearchProvider({ children }: SearchProviderProps) {
     }
   }, [searchParams]);
 
-  const handleSearch = async () => {
+  const handleSearch = async (localQuery?: string) => {
+    const searchQuery = localQuery || query;
     setIsLoading(true);
 
     // Reset offset and current page for new searches
@@ -127,7 +128,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
     // Update URL with current search parameters
     updateUrl({
-      search: query,
+      search: searchQuery,
     });
 
     posthog.capture("searched", { query });
@@ -135,7 +136,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
     try {
       // Build the API URL with query parameters
       const params = new URLSearchParams();
-      if (query.trim()) params.append("search", query);
+      if (query.trim()) params.append("search", searchQuery);
       params.append("exactPhrase", "true"); // Always use exact phrase
       params.append("limit", "50"); // Always load 50 at a time
       params.append("offset", "0"); // Explicitly set offset to 0

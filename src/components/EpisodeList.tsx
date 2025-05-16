@@ -28,7 +28,7 @@ export default function EpisodeList({
 
   if (results.length === 0) {
     if (query) {
-      return <p className="text-center text-gray-500"></p>;
+      return <h2 className="text-xl font-semibold mb-4">Found 0 episodes</h2>;
     }
     return (
       <p className="text-center text-gray-500">
