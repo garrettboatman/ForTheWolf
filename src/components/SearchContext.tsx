@@ -131,7 +131,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
       search: searchQuery,
     });
 
-    posthog.capture("searched", { query });
+    posthog.capture("searched", { query: localQuery || query });
 
     try {
       // Build the API URL with query parameters
