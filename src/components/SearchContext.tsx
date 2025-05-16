@@ -125,7 +125,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
     // Update URL with current search parameters
     updateUrl({
-      query,
+      search: query,
     });
 
     try {
