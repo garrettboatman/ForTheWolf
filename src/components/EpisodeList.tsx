@@ -2,6 +2,7 @@
 
 import { Episode } from "@/utils/types";
 import { formatDate } from "@/utils/ui";
+import { useState } from "react";
 
 interface EpisodeListProps {
   results: (Episode & { highlight?: Record<string, string[]> })[];
@@ -18,6 +19,17 @@ export default function EpisodeList({
   loadMore,
   query,
 }: EpisodeListProps) {
+  const [visibleScripts, setVisibleScripts] = useState<Record<number, boolean>>(
+    {}
+  );
+
+  const toggleScript = (episodeId: number) => {
+    setVisibleScripts((prev) => ({
+      ...prev,
+      [episodeId]: !prev[episodeId],
+    }));
+  };
+
   if (isLoading && results.length === 0) {
     return (
       <div className="text-center py-8">
@@ -56,6 +68,15 @@ export default function EpisodeList({
             </p>
 
             <div className="my-4">
+              {episode.highlight &&
+                Object.keys(episode.highlight).length > 0 && (
+                  <button
+                    onClick={() => toggleScript(episode.id)}
+                    className="inline-block text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
+                  >
+                    {visibleScripts[episode.id] ? "Hide Script" : "Show Script"}
+                  </button>
+                )}
               <a
                 target="_blank"
                 href={
@@ -66,14 +87,18 @@ export default function EpisodeList({
                       )}`
                     : episode.alt_embed_src
                 }
-                className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 "
+                className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
               >
                 Watch Episode
               </a>
             </div>
 
             {episode.highlight && Object.keys(episode.highlight).length > 0 && (
-              <div className="my-6 rounded text-sm">
+              <div
+                className={`my-6 rounded text-sm transition-all duration-300 ${
+                  visibleScripts[episode.id] ? "block" : "hidden"
+                }`}
+              >
                 {Object.entries(episode.highlight).map(
                   ([field, highlights]) => (
                     <div key={field}>
@@ -87,19 +112,19 @@ export default function EpisodeList({
                     </div>
                   )
                 )}
-              </div>
-            )}
-            {!!episode.scribe && (
-              <div>
-                Transcribed by{" "}
-                <a
-                  href={`https://www.reddit.com/u/${episode.scribe}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-orange-500 hover:underline mt-2 inline-block"
-                >
-                  u/{episode.scribe}
-                </a>
+                {!!episode.scribe && (
+                  <div>
+                    Transcribed by{" "}
+                    <a
+                      href={`https://www.reddit.com/u/${episode.scribe}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-orange-500 hover:underline mt-2 inline-block"
+                    >
+                      u/{episode.scribe}
+                    </a>
+                  </div>
+                )}
               </div>
             )}
           </li>
