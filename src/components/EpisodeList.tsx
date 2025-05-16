@@ -23,12 +23,23 @@ export default function EpisodeList({
     {}
   );
 
+  // const [visibleVideos, setVisibleVideos] = useState<Record<number, boolean>>(
+  //   {}
+  // );
+
   const toggleScript = (episodeId: number) => {
     setVisibleScripts((prev) => ({
       ...prev,
       [episodeId]: !prev[episodeId],
     }));
   };
+
+  // const toggleVideo = (episodeId: number) => {
+  //   setVisibleVideos((prev) => ({
+  //     ...prev,
+  //     [episodeId]: !prev[episodeId],
+  //   }));
+  // };
 
   if (isLoading && results.length === 0) {
     return (
@@ -66,6 +77,20 @@ export default function EpisodeList({
             <p className="text-lg font-bold text-gray-600">
               {formatDate(episode.air_date)} | {episode.duration}
             </p>
+            {!!episode.youtube_id && (
+              <div
+                className={`my-4 mb-6 relative w-full overflow-hidden`}
+                style={{ paddingTop: "56.25%" }}
+              >
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full"
+                  src="https://www.youtube.com/embed/S2UF32rBD18?widget_referrer=https://scripts.jakeandamir.com"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen={true}
+                ></iframe>
+              </div>
+            )}
 
             <div className="my-4">
               {episode.highlight &&
@@ -77,20 +102,31 @@ export default function EpisodeList({
                     {visibleScripts[episode.id] ? "Hide Script" : "Show Script"}
                   </button>
                 )}
-              <a
-                target="_blank"
-                href={
-                  episode.alt_embed_src?.includes("collegehumor")
-                    ? `https://www.youtube.com/results?search_query=Jake+and+Amir:+${episode.title.replace(
-                        " ",
-                        "+"
-                      )}`
-                    : episode.alt_embed_src
-                }
-                className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
-              >
-                Watch Episode
-              </a>
+              {episode.youtube_id ? (
+                <>
+                  {/* <button
+                  onClick={() => toggleVideo(episode.id)}
+                  className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
+                >
+                  {visibleVideos[episode.id] ? "Hide Video" : "Show Video"}
+                </button> */}
+                </>
+              ) : (
+                <a
+                  target="_blank"
+                  href={
+                    episode.alt_embed_src?.includes("collegehumor")
+                      ? `https://www.youtube.com/results?search_query=Jake+and+Amir:+${episode.title.replace(
+                          " ",
+                          "+"
+                        )}`
+                      : episode.alt_embed_src
+                  }
+                  className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
+                >
+                  Watch Episode
+                </a>
+              )}
             </div>
 
             {episode.highlight && Object.keys(episode.highlight).length > 0 && (
@@ -116,12 +152,22 @@ export default function EpisodeList({
                   <div>
                     Transcribed by{" "}
                     <a
-                      href={`https://www.reddit.com/u/${episode.scribe}`}
+                      href={
+                        episode.scribe.includes("github")
+                          ? episode.scribe
+                          : `https://www.reddit.com/u/${episode.scribe}`
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-orange-500 hover:underline mt-2 inline-block"
                     >
-                      u/{episode.scribe}
+                      {episode.scribe.includes("github") ? (
+                        <>
+                          @{episode.scribe.replace("https://github.com/", "")}
+                        </>
+                      ) : (
+                        <>u/{episode.scribe}</>
+                      )}
                     </a>
                   </div>
                 )}
