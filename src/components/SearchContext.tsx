@@ -10,6 +10,7 @@ import {
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Episode } from "@/utils/types";
+import { usePostHog } from "posthog-js/react";
 
 interface ApiResponse {
   total: number;
@@ -45,6 +46,7 @@ interface SearchProviderProps {
 export function SearchProvider({ children }: SearchProviderProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const posthog = usePostHog();
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<
@@ -127,6 +129,8 @@ export function SearchProvider({ children }: SearchProviderProps) {
     updateUrl({
       search: query,
     });
+
+    posthog.capture("searched", { query });
 
     try {
       // Build the API URL with query parameters
