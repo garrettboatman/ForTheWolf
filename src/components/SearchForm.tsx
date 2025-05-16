@@ -24,7 +24,7 @@ export default function SearchForm({
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
-    setLocalQuery(newQuery);
+    setLocalQuery(newQuery.toLowerCase());
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -39,6 +39,8 @@ export default function SearchForm({
       <div className="flex relative">
         <input
           type="text"
+          autoComplete="off"
+          autoCorrect="off"
           value={localQuery}
           onChange={handleQueryChange}
           placeholder="for the wolf..."
