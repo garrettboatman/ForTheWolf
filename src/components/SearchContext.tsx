@@ -21,7 +21,9 @@ interface ApiResponse {
 
 interface SearchContextType {
   query: string;
+  exactSearch: string;
   setQuery: (query: string) => void;
+  setExactSearch: (exactSearch: string) => void;
   results: (Episode & { highlight?: Record<string, string[]> })[];
   isLoading: boolean;
   totalResults: number;
@@ -49,6 +51,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
   const posthog = usePostHog();
 
   const [query, setQuery] = useState("");
+  const [exactSearch, setExactSearch] = useState("true");
   const [results, setResults] = useState<
     (Episode & { highlight?: Record<string, string[]> })[]
   >([]);
@@ -80,6 +83,8 @@ export function SearchProvider({ children }: SearchProviderProps) {
   useEffect(() => {
     const queryParam = searchParams.get("search") || "";
     setQuery(queryParam);
+    const exactSearchParam = searchParams.get("exact") || "true";
+    setExactSearch(exactSearchParam);
 
     // Reset pagination state when URL changes
     setOffset(0);
@@ -91,7 +96,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
         try {
           const params = new URLSearchParams();
           if (queryParam.trim()) params.append("search", queryParam);
-          params.append("exactPhrase", "true"); // Always use exact phrase
+          params.append("exactPhrase", exactSearchParam);
           params.append("limit", "50"); // Always load 50 at a time
           params.append("offset", "0"); // Explicitly set offset to 0
 
@@ -119,8 +124,9 @@ export function SearchProvider({ children }: SearchProviderProps) {
     }
   }, [searchParams]);
 
-  const handleSearch = async (localQuery?: string) => {
+  const handleSearch = async (localQuery?: string, localExactSearch?: string) => {
     const searchQuery = localQuery || query;
+    const searchExactPhrase = localExactSearch || exactSearch;
     setIsLoading(true);
 
     // Reset offset and current page for new searches
@@ -129,6 +135,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
     // Update URL with current search parameters
     updateUrl({
       search: searchQuery,
+      exact: searchExactPhrase
     });
 
     posthog.capture("searched", { query: searchQuery });
@@ -137,7 +144,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
       // Build the API URL with query parameters
       const params = new URLSearchParams();
       if (query.trim()) params.append("search", searchQuery);
-      params.append("exactPhrase", "true"); // Always use exact phrase
+      params.append("exactPhrase", searchExactPhrase);
       params.append("limit", "50"); // Always load 50 at a time
       params.append("offset", "0"); // Explicitly set offset to 0
 
@@ -171,7 +178,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
     try {
       const params = new URLSearchParams();
       if (query.trim()) params.append("search", query);
-      params.append("exactPhrase", "true"); // Always use exact phrase
+      params.append("exactPhrase", exactSearch);
       params.append("limit", "50"); // Explicitly set to 50 to ensure consistency
       params.append("offset", newOffset.toString());
 
@@ -202,7 +209,9 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   const value = {
     query,
+    exactSearch,
     setQuery,
+    setExactSearch,
     results,
     isLoading,
     totalResults,

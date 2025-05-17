@@ -4,22 +4,28 @@ import { useState, useEffect, FormEvent } from "react";
 
 interface SearchFormProps {
   initialQuery: string;
-  onSearch: (localQuery?: string) => void;
+  initialExactSearch: string;
+  onSearch: (localQuery?: string, localExactSearch?: string) => void;
   setQuery: (query: string) => void;
+  setExactSearch: (exactSearch: string) => void;
   isLoading: boolean;
 }
 
 export default function SearchForm({
   initialQuery,
+  initialExactSearch,
   onSearch,
   setQuery,
+  setExactSearch,
   isLoading,
 }: SearchFormProps) {
   const [localQuery, setLocalQuery] = useState(initialQuery);
+  const [localExactSearch, setLocalExactSearch] = useState(initialExactSearch === "true");
 
   // Sync local query with parent state
   useEffect(() => {
     setLocalQuery(initialQuery);
+    setLocalExactSearch(initialExactSearch === "true");
   }, [initialQuery]);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,11 +33,17 @@ export default function SearchForm({
     setLocalQuery(newQuery.toLowerCase());
   };
 
+  const handleExactSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.checked;
+    setLocalExactSearch(newValue);
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("localQuery", localQuery);
     setQuery(localQuery);
-    onSearch(localQuery || "");
+    setExactSearch(localExactSearch.toString());
+    onSearch(localQuery || "", localExactSearch.toString());
   };
 
   return (
@@ -54,6 +66,20 @@ export default function SearchForm({
         >
           Search
         </button>
+      </div>
+      <div className="flex relative">
+        <input
+          type="checkbox"
+          checked={localExactSearch}
+          onChange={handleExactSearchChange}
+          id="exactSearchCheckbox"
+        />
+        <label
+          htmlFor="exactSearchCheckbox"
+          className="h-full text-black p-3 px-4"
+        >
+          Exact phrase?
+        </label>
       </div>
     </form>
   );

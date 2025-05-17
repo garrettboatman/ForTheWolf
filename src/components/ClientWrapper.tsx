@@ -7,7 +7,9 @@ import EpisodeList from "./EpisodeList";
 export default function ClientWrapper() {
   const {
     query,
+    exactSearch,
     setQuery,
+    setExactSearch,
     results,
     isLoading,
     totalResults,
@@ -19,8 +21,10 @@ export default function ClientWrapper() {
     <>
       <SearchForm
         initialQuery={query}
+        initialExactSearch={exactSearch}
         onSearch={handleSearch}
         setQuery={setQuery}
+        setExactSearch={setExactSearch}
         isLoading={isLoading}
       />
       <div className="mt-6">
