@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import Fuse from 'fuse.js';
 // import { Client } from "@elastic/elasticsearch";
 import { Episode } from "@/utils/types";
 
@@ -122,20 +123,18 @@ function enhancedLocalSearch(
       });
     });
   } else {
-    // For basic search with terms
-    const terms = query
-      .toLowerCase()
-      .split(/\s+/)
-      .filter((term) => term.length > 1);
-    matchedEpisodes = episodes.filter((episode) => {
-      return searchFields.some((field) => {
-        const value = episode[field as keyof Episode];
-        if (value === undefined || value === null) return false;
-
-        const content = value.toString().toLowerCase();
-        return terms.some((term) => content.includes(term));
-      });
+    // Using fuse.js for fuzzy (non-exact) search
+    const fuse = new Fuse(episodes, {
+      keys: searchFields,
+      // There are a lot of options to tweak here, these settings seem decent but not great
+      // List of options is available here: https://www.fusejs.io/api/options.html
+      ignoreLocation: true,
+      includeMatches: true,
+      ignoreFieldNorm: true,
+      threshold: 0.25
     });
+    const fuseResults = fuse.search(query);
+    matchedEpisodes = fuseResults.map(fuseResult => fuseResult.item);
   }
 
   // Adding highlighting to results
@@ -166,21 +165,19 @@ function enhancedLocalSearch(
         const terms = lowerQuery.split(/\s+/).filter((term) => term.length > 1);
         const matches = terms.filter((term) => lowerContent.includes(term));
 
-        if (matches.length > 0) {
-          let highlightedContent = content;
-          // Start with longest terms first for better highlighting
-          matches
-            .sort((a, b) => b.length - a.length)
-            .forEach((term) => {
-              highlightedContent = generateHighlightForTerm(
-                highlightedContent,
-                term
-              );
-            });
+        let highlightedContent = content;
+        // Start with longest terms first for better highlighting
+        matches
+          .sort((a, b) => b.length - a.length)
+          .forEach((term) => {
+            highlightedContent = generateHighlightForTerm(
+              highlightedContent,
+              term
+            );
+          });
 
-          if (!enhancedEpisode.highlight) enhancedEpisode.highlight = {};
-          enhancedEpisode.highlight[field] = [highlightedContent];
-        }
+        if (!enhancedEpisode.highlight) enhancedEpisode.highlight = {};
+        enhancedEpisode.highlight[field] = [highlightedContent];
       }
     });
 
@@ -214,32 +211,21 @@ function generateHighlight(
   return `${before}<span class="script-match">${match}</span>${after}`;
 }
 
-// Helper function to highlight individual term
+// Recursive helper function to highlight individual term
 function generateHighlightForTerm(content: string, lowerTerm: string): string {
   const lowerContent = content.toLowerCase();
-  let result = content;
-  let lastIndex = 0;
-  let index: number;
+  const start = lowerContent.indexOf(lowerTerm);
+  // Recursive base case is when the term can no longer be found
+  if (start === -1) return content;
 
-  // Find all occurrences of the term and highlight them
-  while ((index = lowerContent.indexOf(lowerTerm, lastIndex)) !== -1) {
-    // Need to account for existing tags
-    const prefix = result.substring(0, index);
-    const match = result.substring(index, index + lowerTerm.length);
-    const suffix = result.substring(index + lowerTerm.length);
+  const end = start + lowerTerm.length;
+  const before = content.substring(0, start);
+  const match = content.substring(start, end);
+  // Recursively generate the highlighting for the remaining content
+  const after = generateHighlightForTerm(content.substring(end), lowerTerm);
 
-    // Skip if we're inside a tag
-    if (prefix.lastIndexOf("<") > prefix.lastIndexOf(">")) {
-      lastIndex = index + 1;
-      continue;
-    }
-
-    result = `${prefix}<span class="script-match">${match}</span>${suffix}`;
-    // Update lower content to match the new result
-    lastIndex = index + match.length + 9; // 9 is the length of "<em></em>"
-  }
-
-  return result;
+  // Use em tags for highlighting (similar to Elasticsearch)
+  return `${before}<span class="script-match">${match}</span>${after}`;
 }
 
 export async function GET(request: NextRequest) {
