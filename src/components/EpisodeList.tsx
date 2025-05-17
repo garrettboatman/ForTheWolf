@@ -3,6 +3,7 @@
 import { Episode } from "@/utils/types";
 import { formatDate } from "@/utils/ui";
 import { useState } from "react";
+import Link from "next/link";
 
 interface EpisodeListProps {
   results: (Episode & { highlight?: Record<string, string[]> })[];
@@ -73,7 +74,7 @@ export default function EpisodeList({
             data-id={episode.id}
             className="border p-4 rounded-lg bg-white"
           >
-            <h3 className="text-3xl font-bold">{episode.title}</h3>
+            <h3 className="text-3xl font-bold"><Link href={`/episodes/${episode.id}`} target="_blank">{episode.title}</Link></h3>
             <p className="text-lg font-bold text-gray-600">
               {formatDate(episode.air_date)} | {episode.duration}
             </p>

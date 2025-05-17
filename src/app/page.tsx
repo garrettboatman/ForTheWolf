@@ -5,6 +5,7 @@ import Image from "next/image";
 import IntroImage from "../../public/jna-intro.jpg";
 import { Tip } from "@/components/Tooltip";
 import { InfoIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -71,6 +72,8 @@ export default function Home() {
             <ClientWrapper />
           </SearchProvider>
         </Suspense>
+
+        <h3 className="text-center mt-8"><Link href={"/allEpisodes"}>Full list of episodes {">"}</Link></h3>
       </div>
     </main>
   );
