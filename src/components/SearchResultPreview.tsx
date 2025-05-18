@@ -2,8 +2,8 @@ import {EpisodeWithHighlight} from "@/utils/types";
 import {useEffect, useState} from "react";
 
 const MAX_PREVIEW_LINES = 3;
-const PREV_CHARACTERS = 10;
-const POST_CHARACTERS = 13;
+const PREV_CHARACTERS = 30;
+const POST_CHARACTERS = 30;
 const HIGHLIGHT_TAG_START = `<span class="script-match">`;
 const HIGHLIGHT_TAG_END = "</span>";
 
