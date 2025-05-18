@@ -9,3 +9,5 @@ export interface Episode {
   alt_embed_src?: string;
   youtube_id?: string;
 }
+
+export type EpisodeWithHighlight = Episode & { highlight?: Record<string, string[]> | undefined};
