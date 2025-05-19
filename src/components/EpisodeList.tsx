@@ -4,6 +4,9 @@ import {EpisodeWithHighlight} from "@/utils/types";
 import {formatDate} from "@/utils/ui";
 import {useState} from "react";
 import SearchResultPreview from "@/components/SearchResultPreview";
+import Link from "next/link";
+import ScribeLink from "./ScribeLink";
+import VideoEmbed from "./VideoEmbed";
 
 interface EpisodeListProps {
   results: EpisodeWithHighlight[];
@@ -24,9 +27,9 @@ export default function EpisodeList({
     {}
   );
 
-  // const [visibleVideos, setVisibleVideos] = useState<Record<number, boolean>>(
-  //   {}
-  // );
+  const [visibleVideos, setVisibleVideos] = useState<Record<number, boolean>>(
+    {}
+  );
 
   const toggleScript = (episodeId: number) => {
     setVisibleScripts((prev) => ({
@@ -35,12 +38,12 @@ export default function EpisodeList({
     }));
   };
 
-  // const toggleVideo = (episodeId: number) => {
-  //   setVisibleVideos((prev) => ({
-  //     ...prev,
-  //     [episodeId]: !prev[episodeId],
-  //   }));
-  // };
+  const toggleVideo = (episodeId: number) => {
+    setVisibleVideos((prev) => ({
+      ...prev,
+      [episodeId]: !prev[episodeId],
+    }));
+  };
 
   if (isLoading && results.length === 0) {
     return (
@@ -74,24 +77,20 @@ export default function EpisodeList({
             data-id={episode.id}
             className="border p-4 rounded-lg bg-white"
           >
-            <h3 className="text-3xl font-bold">{episode.title}</h3>
+            <h3 className="text-3xl font-bold">
+              <Link href={`/episodes/${episode.id}`} target="_blank">
+                {episode.title}
+              </Link>
+            </h3>
             <p className="text-lg font-bold text-gray-600">
               {formatDate(episode.air_date)} | {episode.duration}
             </p>
-            {!!episode.youtube_id && (
-              <div
-                className={`my-4 mb-6 relative w-full overflow-hidden`}
-                style={{ paddingTop: "56.25%" }}
-              >
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/S2UF32rBD18?widget_referrer=https://scripts.jakeandamir.com"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen={true}
-                ></iframe>
+
+            {visibleVideos[episode.id] &&
+              <div className="my-4 mb-6">
+                <VideoEmbed video={episode.youtube_id || episode.alt_embed_src} isYoutube={!!episode.youtube_id} />
               </div>
-            )}
+            }
 
             <div className="my-4">
               {episode.highlight &&
@@ -103,29 +102,22 @@ export default function EpisodeList({
                     {visibleScripts[episode.id] ? "Hide Script" : "Show Script"}
                   </button>
                 )}
-              {episode.youtube_id ? (
+              {(episode.youtube_id || episode.alt_embed_src) ? (
                 <>
-                  {/* <button
+                  <button
                   onClick={() => toggleVideo(episode.id)}
                   className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
                 >
-                  {visibleVideos[episode.id] ? "Hide Video" : "Show Video"}
-                </button> */}
+                  {visibleVideos[episode.id] ? "Hide Video" : "Watch Video"}
+                </button>
                 </>
               ) : (
                 <a
                   target="_blank"
-                  href={
-                    episode.alt_embed_src?.includes("collegehumor")
-                      ? `https://www.youtube.com/results?search_query=Jake+and+Amir:+${episode.title.replace(
-                          " ",
-                          "+"
-                        )}`
-                      : episode.alt_embed_src
-                  }
+                  href={`https://www.youtube.com/results?search_query=Jake+and+Amir:+${episode.title.replace(" ","+")}`}
                   className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
                 >
-                  Watch Episode
+                  Watch Video
                 </a>
               )}
             </div>
@@ -155,26 +147,8 @@ export default function EpisodeList({
                   )
                 )}
                 {!!episode.scribe && (
-                  <div>
-                    Transcribed by{" "}
-                    <a
-                      href={
-                        episode.scribe.includes("github")
-                          ? episode.scribe
-                          : `https://www.reddit.com/u/${episode.scribe}`
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-orange-500 hover:underline mt-2 inline-block"
-                    >
-                      {episode.scribe.includes("github") ? (
-                        <>
-                          @{episode.scribe.replace("https://github.com/", "")}
-                        </>
-                      ) : (
-                        <>u/{episode.scribe}</>
-                      )}
-                    </a>
+                  <div className="mt-2">
+                    Transcribed by <ScribeLink scribe={episode.scribe} />
                   </div>
                 )}
               </div>
