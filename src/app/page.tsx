@@ -73,7 +73,9 @@ export default function Home() {
           </SearchProvider>
         </Suspense>
 
-        <h3 className="text-center mt-8"><Link href={"/allEpisodes"}>Full list of episodes {">"}</Link></h3>
+        <h3 className="text-center mt-8">
+          <Link href={"/episodes"}>Full list of episodes {">"}</Link>
+        </h3>
       </div>
     </main>
   );

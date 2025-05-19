@@ -4,6 +4,9 @@ import {EpisodeWithHighlight} from "@/utils/types";
 import {formatDate} from "@/utils/ui";
 import {useState} from "react";
 import SearchResultPreview from "@/components/SearchResultPreview";
+import Link from "next/link";
+import ScribeLink from "./ScribeLink";
+import VideoEmbed from "./VideoEmbed";
 
 interface EpisodeListProps {
   results: EpisodeWithHighlight[];
@@ -74,24 +77,17 @@ export default function EpisodeList({
             data-id={episode.id}
             className="border p-4 rounded-lg bg-white"
           >
-            <h3 className="text-3xl font-bold"><Link href={`/episodes/${episode.id}`} target="_blank">{episode.title}</Link></h3>
+            <h3 className="text-3xl font-bold">
+              <Link href={`/episodes/${episode.id}`} target="_blank">
+                {episode.title}
+              </Link>
+            </h3>
             <p className="text-lg font-bold text-gray-600">
               {formatDate(episode.air_date)} | {episode.duration}
             </p>
-            {!!episode.youtube_id && (
-              <div
-                className={`my-4 mb-6 relative w-full overflow-hidden`}
-                style={{ paddingTop: "56.25%" }}
-              >
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/S2UF32rBD18?widget_referrer=https://scripts.jakeandamir.com"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen={true}
-                ></iframe>
-              </div>
-            )}
+            <div className="my-4 mb-6">
+            <VideoEmbed video={episode.youtube_id || episode.alt_embed_src} isYoutube={!!episode.youtube_id} />
+            </div>
 
             <div className="my-4">
               {episode.highlight &&
@@ -155,26 +151,8 @@ export default function EpisodeList({
                   )
                 )}
                 {!!episode.scribe && (
-                  <div>
-                    Transcribed by{" "}
-                    <a
-                      href={
-                        episode.scribe.includes("github")
-                          ? episode.scribe
-                          : `https://www.reddit.com/u/${episode.scribe}`
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-orange-500 hover:underline mt-2 inline-block"
-                    >
-                      {episode.scribe.includes("github") ? (
-                        <>
-                          @{episode.scribe.replace("https://github.com/", "")}
-                        </>
-                      ) : (
-                        <>u/{episode.scribe}</>
-                      )}
-                    </a>
+                  <div className="mt-2">
+                    Transcribed by <ScribeLink scribe={episode.scribe} />
                   </div>
                 )}
               </div>
