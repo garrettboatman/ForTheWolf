@@ -1,12 +1,12 @@
 "use client";
 
-import { Episode } from "@/utils/types";
-import { formatDate } from "@/utils/ui";
-import { useState } from "react";
-import Link from "next/link";
+import {EpisodeWithHighlight} from "@/utils/types";
+import {formatDate} from "@/utils/ui";
+import {useState} from "react";
+import SearchResultPreview from "@/components/SearchResultPreview";
 
 interface EpisodeListProps {
-  results: (Episode & { highlight?: Record<string, string[]> })[];
+  results: EpisodeWithHighlight[];
   totalResults: number;
   isLoading: boolean;
   loadMore: () => void;
@@ -130,11 +130,16 @@ export default function EpisodeList({
               )}
             </div>
 
-            {episode.highlight && Object.keys(episode.highlight).length > 0 && (
+            {/* show a minimal preview of the search result; hidden when a
+             user expands the search result */}
+            {episode.highlight && !visibleScripts[episode.id] &&
+              <SearchResultPreview episode={episode} />
+            }
+
+            {/* show the full episode result */}
+            {episode.highlight && Object.keys(episode.highlight).length > 0 && visibleScripts[episode.id] && (
               <div
-                className={`my-6 rounded text-sm transition-all duration-300 ${
-                  visibleScripts[episode.id] ? "block" : "hidden"
-                }`}
+                className="my-6 rounded text-sm transition-all duration-300 block"
               >
                 {Object.entries(episode.highlight).map(
                   ([field, highlights]) => (
