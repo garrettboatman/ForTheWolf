@@ -1,4 +1,4 @@
-import { PortableText, type SanityDocument } from "next-sanity";
+import { type SanityDocument } from "next-sanity";
 import { client } from "@/utils/sanityClient";
 import Link from "next/link";
 
