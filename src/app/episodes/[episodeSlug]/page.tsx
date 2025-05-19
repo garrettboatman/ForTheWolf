@@ -4,7 +4,6 @@ import VideoEmbed from "@/components/VideoEmbed";
 import {client} from "@/utils/sanityClient";
 import type {SanityDocument} from "next-sanity";
 
-
 const POST_QUERY = `*[_type == "episode" && slug.current == $episodeSlug][0]`;
 const options = {next: {revalidate: 30}};
 
@@ -37,7 +36,7 @@ export default async function EpisodeDetailPage({params}: {
       </div>
       <div className="my-8">
         <p className="text-2xl lg:text-3xl font-semibold">{episode.title}</p>
-        <p className="text-lg lg:text-xl">Episode ID: {episode.id}</p>
+        <p className="text-lg lg:text-xl">Episode ID: {episode.episode_number}</p>
         <p className="text-lg lg:text-xl">Air date: {episode.air_date}</p>
         {/*TODO: youtube link and embed*/}
         <p className="text-lg lg:text-xl">

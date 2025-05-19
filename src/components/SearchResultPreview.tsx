@@ -27,7 +27,7 @@ export default function SearchResultPreview({episode}: { episode: EpisodeWithHig
 
   useEffect(() => {
     if (episode.highlight?.script) {
-      const chunks = episode.highlight.script[0].split("<br />");
+      const chunks = episode.highlight.script[0].split("\n\n");
       setHighlightedSnippets(
         chunks.filter(chunk => chunk.includes(HIGHLIGHT_TAG_START))
           .slice(0, MAX_PREVIEW_LINES)

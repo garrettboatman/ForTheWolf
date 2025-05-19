@@ -225,7 +225,7 @@ function generateHighlight( // eslint-disable-line
  * @param content
  * @param query
  */
-function generateHighlightWithRegex(content: string, query: string): string {
+export function generateHighlightWithRegex(content: string, query: string): string {
   const queryAsRegex = new RegExp(query, "gi");
   const highlightedContent = content.replace(queryAsRegex, match => {
     return `<span class="script-match">${match}</span>`;

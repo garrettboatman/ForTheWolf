@@ -143,7 +143,7 @@ export default function EpisodeList({
                       {highlights.map((html, i) => (
                         <p
                           key={`${episode.id}-highlight-${i}`}
-                          className="mb-1 text-md font-mono"
+                          className="mb-1 text-md font-mono whitespace-pre-wrap"
                           dangerouslySetInnerHTML={{ __html: html }}
                         />
                       ))}

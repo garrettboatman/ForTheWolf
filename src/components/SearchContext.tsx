@@ -12,6 +12,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Episode } from "@/utils/types";
 import { usePostHog } from "posthog-js/react";
 
+// (theoretically) easy switching between legacy "episodes" route and new "episodesGroq" route
+// const API_ENDPOINT = "/api/episodes"
+const API_ENDPOINT = "/api/episodesGroq"
+
 interface ApiResponse {
   total: number;
   offset: number;
@@ -97,7 +101,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
           console.log("Initial search with limit: 50, offset: 0");
 
-          const response = await fetch(`/api/episodes?${params.toString()}`);
+          const response = await fetch(`${API_ENDPOINT}?${params.toString()}`);
           if (!response.ok) {
             throw new Error(
               `API request failed with status ${response.status}`
@@ -144,7 +148,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
       console.log("New search with limit: 50, offset: 0");
 
       // Fetch from our API route
-      const response = await fetch(`/api/episodes?${params.toString()}`);
+      const response = await fetch(`${API_ENDPOINT}?${params.toString()}`);
 
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
@@ -177,7 +181,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
       console.log(`Loading more with offset: ${newOffset}, limit: 50`);
 
-      const response = await fetch(`/api/episodes?${params.toString()}`);
+      const response = await fetch(`${API_ENDPOINT}?${params.toString()}`);
 
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
