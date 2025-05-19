@@ -64,7 +64,7 @@ export default async function EpisodeDetailPage({params}: {
           video={episode.youtube_id || episode.alt_embed_src}
           isYoutube={!!episode.youtube_id}
         />
-        <div className="whitespace-pre-wrap border-2 mt-6 p-4 rounded-md border-gray-600">
+        <div className="whitespace-pre-wrap bg-white border-2 mt-6 p-4 rounded-md border-gray-600">
           {episode.script_text}
         </div>
       </div>

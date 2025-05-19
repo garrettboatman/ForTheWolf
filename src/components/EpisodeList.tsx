@@ -27,9 +27,9 @@ export default function EpisodeList({
     {}
   );
 
-  // const [visibleVideos, setVisibleVideos] = useState<Record<number, boolean>>(
-  //   {}
-  // );
+  const [visibleVideos, setVisibleVideos] = useState<Record<number, boolean>>(
+    {}
+  );
 
   const toggleScript = (episodeId: number) => {
     setVisibleScripts((prev) => ({
@@ -38,12 +38,12 @@ export default function EpisodeList({
     }));
   };
 
-  // const toggleVideo = (episodeId: number) => {
-  //   setVisibleVideos((prev) => ({
-  //     ...prev,
-  //     [episodeId]: !prev[episodeId],
-  //   }));
-  // };
+  const toggleVideo = (episodeId: number) => {
+    setVisibleVideos((prev) => ({
+      ...prev,
+      [episodeId]: !prev[episodeId],
+    }));
+  };
 
   if (isLoading && results.length === 0) {
     return (
@@ -85,9 +85,12 @@ export default function EpisodeList({
             <p className="text-lg font-bold text-gray-600">
               {formatDate(episode.air_date)} | {episode.duration}
             </p>
-            <div className="my-4 mb-6">
-            <VideoEmbed video={episode.youtube_id || episode.alt_embed_src} isYoutube={!!episode.youtube_id} />
-            </div>
+
+            {visibleVideos[episode.id] &&
+              <div className="my-4 mb-6">
+                <VideoEmbed video={episode.youtube_id || episode.alt_embed_src} isYoutube={!!episode.youtube_id} />
+              </div>
+            }
 
             <div className="my-4">
               {episode.highlight &&
@@ -99,29 +102,22 @@ export default function EpisodeList({
                     {visibleScripts[episode.id] ? "Hide Script" : "Show Script"}
                   </button>
                 )}
-              {episode.youtube_id ? (
+              {(episode.youtube_id || episode.alt_embed_src) ? (
                 <>
-                  {/* <button
+                  <button
                   onClick={() => toggleVideo(episode.id)}
                   className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
                 >
-                  {visibleVideos[episode.id] ? "Hide Video" : "Show Video"}
-                </button> */}
+                  {visibleVideos[episode.id] ? "Hide Video" : "Watch Video"}
+                </button>
                 </>
               ) : (
                 <a
                   target="_blank"
-                  href={
-                    episode.alt_embed_src?.includes("collegehumor")
-                      ? `https://www.youtube.com/results?search_query=Jake+and+Amir:+${episode.title.replace(
-                          " ",
-                          "+"
-                        )}`
-                      : episode.alt_embed_src
-                  }
+                  href={`https://www.youtube.com/results?search_query=Jake+and+Amir:+${episode.title.replace(" ","+")}`}
                   className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
                 >
-                  Watch Episode
+                  Watch Video
                 </a>
               )}
             </div>
