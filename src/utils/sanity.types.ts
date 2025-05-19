@@ -184,6 +184,7 @@ export type SanityEpisode = {
     _key: string
     [internalGroqTypeReferenceTo]?: 'character'
   }>
+  characters_override: SanityCharacter[]
   scribe?: string
   primary_video_link?: string
   alt_video_links?: Array<string>

@@ -12,14 +12,14 @@ function filterAndHighlight(preliminaryResults: SanityEpisode[], phrase: string)
   total: number;
   data: SanityEpisode[]
 } {
-  const actualResults = preliminaryResults.filter(ep => ep.script_text.includes(phrase));
+  const actualResults = preliminaryResults.filter(ep => ep.script_text.toLowerCase().includes(phrase.toLowerCase()));
   return {
     total: actualResults.length,
-    data: actualResults.map(sanityEpisode => (
+    data: actualResults.map(episode => (
       {
-        ...sanityEpisode,
+        ...episode,
         highlight: {
-          script: [generateHighlightWithRegex(sanityEpisode.script_text, phrase)]
+          script: [generateHighlightWithRegex(episode.script_text, phrase)]
         }
       }
     ))

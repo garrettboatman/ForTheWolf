@@ -3,8 +3,9 @@ import Link from "next/link";
 import VideoEmbed from "@/components/VideoEmbed";
 import {client} from "@/utils/sanityClient";
 import {SanityEpisode} from "@/utils/sanity.types";
+import {SanityEpisodeCharacters} from "@/utils/types";
 
-const EPISODE_QUERY = `*[_type == "episode" && slug.current == $episodeSlug][0]`;
+const EPISODE_QUERY = `*[_type == "episode" && slug.current == $episodeSlug][0]{..., "characters_deref": characters[]->}`;
 const options = {next: {revalidate: 30}};
 
 export async function generateStaticParams() {
@@ -20,7 +21,7 @@ export default async function EpisodeDetailPage({params}: {
   params: Promise<{ episodeSlug: string }>;
 }) {
   const {episodeSlug} = await params;
-  const episode = await client.fetch<SanityEpisode>(EPISODE_QUERY, await params, options);
+  const episode = await client.fetch<SanityEpisodeCharacters>(EPISODE_QUERY, await params, options);
 
   if (!episode) {
     return (
@@ -64,6 +65,13 @@ export default async function EpisodeDetailPage({params}: {
         </p>
         <p className="text-lg lg:text-xl">
           Scribe: <ScribeLink scribe={episode.scribe}/>
+        </p>
+        <p className="text-lg lg:text-xl">
+          Characters: {
+          episode.characters_deref?.length > 0 ?
+            episode.characters_deref?.map(c => c.character_name).join(", ") :
+            <i>unknown</i>
+        }
         </p>
       </div>
       <div className="my-8">

@@ -1,4 +1,4 @@
-import {SanityEpisode} from "@/utils/sanity.types";
+import {SanityCharacter, SanityEpisode} from "@/utils/sanity.types";
 
 export interface Episode {
   id: number;
@@ -14,3 +14,5 @@ export interface Episode {
 export type EpisodeWithHighlight = Episode & { highlight?: Record<string, string[]> | undefined};
 
 export type SanityEpisodeWithHighlight = SanityEpisode & { highlight?: Record<string, string[]> | undefined };
+
+export type SanityEpisodeCharacters = SanityEpisode & { characters_deref: SanityCharacter[] };
