@@ -21,7 +21,8 @@
     "next-sanity": "^9.11.1",
     "posthog-js": "^1.242.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@tanstack/react-table": "^8.21.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
