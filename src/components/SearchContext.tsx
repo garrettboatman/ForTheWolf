@@ -9,24 +9,24 @@ import {
   ReactNode,
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Episode } from "@/utils/types";
 import { usePostHog } from "posthog-js/react";
+import {SanityEpisodeWithHighlight} from "@/utils/types";
 
-// (theoretically) easy switching between legacy "episodes" route and new "episodesGroq" route
+// (theoretically) easy switching between legacy "episodes" route and new "episodesWithCMS" route
 // const API_ENDPOINT = "/api/episodes"
-const API_ENDPOINT = "/api/episodesGroq"
+const API_ENDPOINT = "/api/episodesWithCMS"
 
 interface ApiResponse {
   total: number;
   offset: number;
   limit: number;
-  data: (Episode & { highlight?: Record<string, string[]> })[];
+  data: SanityEpisodeWithHighlight[];
 }
 
 interface SearchContextType {
   query: string;
   setQuery: (query: string) => void;
-  results: (Episode & { highlight?: Record<string, string[]> })[];
+  results: SanityEpisodeWithHighlight[];
   isLoading: boolean;
   totalResults: number;
   handleSearch: () => Promise<void>;
@@ -54,7 +54,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<
-    (Episode & { highlight?: Record<string, string[]> })[]
+    SanityEpisodeWithHighlight[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalResults, setTotalResults] = useState(0);

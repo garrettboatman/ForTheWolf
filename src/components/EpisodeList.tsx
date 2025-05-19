@@ -1,6 +1,6 @@
 "use client";
 
-import {EpisodeWithHighlight} from "@/utils/types";
+import {SanityEpisodeWithHighlight} from "@/utils/types";
 import {formatDate} from "@/utils/ui";
 import {useState} from "react";
 import SearchResultPreview from "@/components/SearchResultPreview";
@@ -9,7 +9,7 @@ import ScribeLink from "./ScribeLink";
 import VideoEmbed from "./VideoEmbed";
 
 interface EpisodeListProps {
-  results: EpisodeWithHighlight[];
+  results: SanityEpisodeWithHighlight[];
   totalResults: number;
   isLoading: boolean;
   loadMore: () => void;
@@ -73,20 +73,20 @@ export default function EpisodeList({
       <ul className="space-y-6">
         {results.map((episode) => (
           <li
-            key={episode.id}
-            data-id={episode.id}
+            key={episode._id}
+            data-id={episode._id}
             className="border p-4 rounded-lg bg-white"
           >
             <h3 className="text-3xl font-bold">
-              <Link href={`/episodes/${episode.id}`} target="_blank">
+              <Link href={`/episodes/${episode.slug?.current}`} target="_blank">
                 {episode.title}
               </Link>
             </h3>
             <p className="text-lg font-bold text-gray-600">
-              {formatDate(episode.air_date)} | {episode.duration}
+              {formatDate(episode.air_date!)} | {episode.duration}
             </p>
 
-            {visibleVideos[episode.id] &&
+            {visibleVideos[episode.episode_number] &&
               <div className="my-4 mb-6">
                 <VideoEmbed video={episode.youtube_id || episode.alt_embed_src} isYoutube={!!episode.youtube_id} />
               </div>
@@ -96,25 +96,26 @@ export default function EpisodeList({
               {episode.highlight &&
                 Object.keys(episode.highlight).length > 0 && (
                   <button
-                    onClick={() => toggleScript(episode.id)}
+                    onClick={() => toggleScript(episode.episode_number)}
                     className="inline-block text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
                   >
-                    {visibleScripts[episode.id] ? "Hide Script" : "Show Script"}
+                    {visibleScripts[episode.episode_number] ? "Hide Script" : "Show" +
+                      " Script"}
                   </button>
                 )}
               {(episode.youtube_id || episode.alt_embed_src) ? (
                 <>
                   <button
-                  onClick={() => toggleVideo(episode.id)}
+                  onClick={() => toggleVideo(episode.episode_number)}
                   className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
                 >
-                  {visibleVideos[episode.id] ? "Hide Video" : "Watch Video"}
+                  {visibleVideos[episode.episode_number] ? "Hide Video" : "Watch Video"}
                 </button>
                 </>
               ) : (
                 <a
                   target="_blank"
-                  href={`https://www.youtube.com/results?search_query=Jake+and+Amir:+${episode.title.replace(" ","+")}`}
+                  href={`https://www.youtube.com/results?search_query=Jake+and+Amir:+${episode.title?.replace(" ","+")}`}
                   className="inline-block text-white bg-slate-950 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 mr-2"
                 >
                   Watch Video
@@ -124,12 +125,12 @@ export default function EpisodeList({
 
             {/* show a minimal preview of the search result; hidden when a
              user expands the search result */}
-            {episode.highlight && !visibleScripts[episode.id] &&
+            {episode.highlight && !visibleScripts[episode.episode_number] &&
               <SearchResultPreview episode={episode} />
             }
 
             {/* show the full episode result */}
-            {episode.highlight && Object.keys(episode.highlight).length > 0 && visibleScripts[episode.id] && (
+            {episode.highlight && Object.keys(episode.highlight).length > 0 && visibleScripts[episode.episode_number] && (
               <div
                 className="my-6 rounded text-sm transition-all duration-300 block"
               >
@@ -138,7 +139,7 @@ export default function EpisodeList({
                     <div key={field}>
                       {highlights.map((html, i) => (
                         <p
-                          key={`${episode.id}-highlight-${i}`}
+                          key={`${episode._id}-highlight-${i}`}
                           className="mb-1 text-md font-mono whitespace-pre-wrap"
                           dangerouslySetInnerHTML={{ __html: html }}
                         />

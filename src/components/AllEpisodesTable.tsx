@@ -11,9 +11,9 @@ import {
 import {ArrowUpDown} from "lucide-react";
 import {useCallback, useMemo, useState} from "react";
 import Link from "next/link";
-import {SanityDocument} from "next-sanity";
+import {SanityEpisode} from "@/utils/sanity.types";
 
-function defaultSortColumn(column: Column<SanityDocument, string>, title: string) {
+function defaultSortColumn(column: Column<SanityEpisode, string>, title: string) {
   return (
     <button
       className="flex items-center space-x-1"
@@ -25,7 +25,7 @@ function defaultSortColumn(column: Column<SanityDocument, string>, title: string
   )
 }
 
-function defaultPlainColumn(column: Column<SanityDocument, string>, title: string) {
+function defaultPlainColumn(column: Column<SanityEpisode, string>, title: string) {
   return (
     <div>
       <span>{title}</span>
@@ -33,10 +33,10 @@ function defaultPlainColumn(column: Column<SanityDocument, string>, title: strin
   )
 }
 
-export default function AllEpisodesTable({episodes}: {episodes: SanityDocument[]}) {
+export default function AllEpisodesTable({episodes}: {episodes: SanityEpisode[]}) {
   // column definition
   // MARK: most changes to the data/display model should be made here rather than in the table html below
-  const columns = useMemo<ColumnDef<SanityDocument, string>[]>(() => [
+  const columns = useMemo<ColumnDef<SanityEpisode, string>[]>(() => [
     {
       accessorKey: 'episode_number',
       header: ({column}) => defaultPlainColumn(column, "#"),
@@ -46,7 +46,7 @@ export default function AllEpisodesTable({episodes}: {episodes: SanityDocument[]
       accessorKey: 'title',
       header: ({column}) => defaultSortColumn(column, "Title"),
       cell: ({row, getValue}) => (
-        <strong><Link href={`/episodes/${row.original.slug.current}`} target="_blank">{getValue()}</Link></strong>
+        <strong><Link href={`/episodes/${row.original.slug?.current}`} target="_blank">{getValue()}</Link></strong>
       )
     },
     {
@@ -83,7 +83,7 @@ export default function AllEpisodesTable({episodes}: {episodes: SanityDocument[]
     });
   }, []);
 
-  const table = useReactTable<SanityDocument>({
+  const table = useReactTable<SanityEpisode>({
     data: episodes,
     columns,
     state: {

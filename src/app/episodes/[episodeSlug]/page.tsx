@@ -2,16 +2,25 @@ import ScribeLink from "@/components/ScribeLink";
 import Link from "next/link";
 import VideoEmbed from "@/components/VideoEmbed";
 import {client} from "@/utils/sanityClient";
-import type {SanityDocument} from "next-sanity";
+import {SanityEpisode} from "@/utils/sanity.types";
 
-const POST_QUERY = `*[_type == "episode" && slug.current == $episodeSlug][0]`;
+const EPISODE_QUERY = `*[_type == "episode" && slug.current == $episodeSlug][0]`;
 const options = {next: {revalidate: 30}};
+
+export async function generateStaticParams() {
+  const episodes = await client.fetch<SanityEpisode[]>(`*[_type == "episode"]{slug}`)
+  return episodes
+    .filter(ep => !!ep.slug)
+    .map(ep => ({
+      episodeSlug: ep.slug!.current
+    }));
+}
 
 export default async function EpisodeDetailPage({params}: {
   params: Promise<{ episodeSlug: string }>;
 }) {
   const {episodeSlug} = await params;
-  const episode = await client.fetch<SanityDocument>(POST_QUERY, await params, options);
+  const episode = await client.fetch<SanityEpisode>(EPISODE_QUERY, await params, options);
 
   if (!episode) {
     return (
@@ -44,9 +53,7 @@ export default async function EpisodeDetailPage({params}: {
           {
             <a
               href={
-                episode.youtube_id
-                  ? `https://www.youtube.com/watch?v=${episode.youtube_id}`
-                  : episode.alt_embed_src
+                episode.primary_video_link
               }
               className="text-blue-500 underline"
               target="_blank"
