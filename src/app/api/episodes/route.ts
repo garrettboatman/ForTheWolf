@@ -153,11 +153,7 @@ function enhancedLocalSearch(
 
       if (exactPhrase && lowerContent.includes(lowerQuery)) {
         // Highlight exact phrase
-        const highlightedContent = generateHighlight(
-          content,
-          lowerContent,
-          lowerQuery
-        );
+        const highlightedContent = generateHighlightWithRegex(content, query);
         if (!enhancedEpisode.highlight) enhancedEpisode.highlight = {};
         enhancedEpisode.highlight[field] = [highlightedContent];
       } else if (!exactPhrase) {
@@ -193,8 +189,15 @@ function enhancedLocalSearch(
   };
 }
 
-// Helper function to generate highlighted content with HTML
-function generateHighlight(
+/**
+ * Helper function to generate highlighted content with HTML
+ * @param content
+ * @param lowerContent
+ * @param lowerQuery
+ *
+ * @deprecated
+ */
+function generateHighlight( // eslint-disable-line
   content: string,
   lowerContent: string,
   lowerQuery: string
@@ -209,6 +212,22 @@ function generateHighlight(
 
   // Use em tags for highlighting (similar to Elasticsearch)
   return `${before}<span class="script-match">${match}</span>${after}`;
+}
+
+/**
+ * alternative to `generateHighlight()` that uses regex instead of substring.
+ * replaces all instances of `query` in `content` with `<span class="script-match">${query}</span>`
+ * (case-insensitive)
+ *
+ * @param content
+ * @param query
+ */
+function generateHighlightWithRegex(content: string, query: string): string {
+  const queryAsRegex = new RegExp(query, "gi");
+  const highlightedContent = content.replace(queryAsRegex, match => {
+    return `<span class="script-match">${match}</span>`;
+  });
+  return highlightedContent;
 }
 
 // Recursive helper function to highlight individual term

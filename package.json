@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "debug": "cross-env NODE_OPTIONS='inspect' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -19,7 +20,8 @@
     "next": "15.3.1",
     "posthog-js": "^1.242.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@tanstack/react-table": "^8.21.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -30,6 +32,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "cross-env": "^7.0.3"
   }
 }
