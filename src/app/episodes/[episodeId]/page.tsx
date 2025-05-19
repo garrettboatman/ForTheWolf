@@ -79,7 +79,7 @@ export default async function EpisodeDetailPage({
           video={episode.youtube_id || episode.alt_embed_src}
           isYoutube={!!episode.youtube_id}
         />
-        <div className="border-2 mt-6 p-4 rounded-md border-gray-600">
+        <div className="border-2 mt-6 p-4 bg-white rounded-md border-gray-600">
           <span dangerouslySetInnerHTML={{ __html: episode.script }}></span>
         </div>
       </div>
