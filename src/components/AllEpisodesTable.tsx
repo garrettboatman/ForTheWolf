@@ -1,6 +1,5 @@
 "use client"
 
-import {Episode} from "@/utils/types";
 import {
   Column,
   ColumnDef,
@@ -12,9 +11,9 @@ import {
 import {ArrowUpDown} from "lucide-react";
 import {useCallback, useMemo, useState} from "react";
 import Link from "next/link";
+import {SanityEpisode} from "@/utils/sanity.types";
 
-
-function defaultSortColumn(column: Column<Episode, string>, title: string) {
+function defaultSortColumn(column: Column<SanityEpisode, string>, title: string) {
   return (
     <button
       className="flex items-center space-x-1"
@@ -26,7 +25,7 @@ function defaultSortColumn(column: Column<Episode, string>, title: string) {
   )
 }
 
-function defaultPlainColumn(column: Column<Episode, string>, title: string) {
+function defaultPlainColumn(column: Column<SanityEpisode, string>, title: string) {
   return (
     <div>
       <span>{title}</span>
@@ -34,12 +33,12 @@ function defaultPlainColumn(column: Column<Episode, string>, title: string) {
   )
 }
 
-export default function AllEpisodesTable({episodes}: {episodes: Episode[]}) {
+export default function AllEpisodesTable({episodes}: {episodes: SanityEpisode[]}) {
   // column definition
   // MARK: most changes to the data/display model should be made here rather than in the table html below
-  const columns = useMemo<ColumnDef<Episode, string>[]>(() => [
+  const columns = useMemo<ColumnDef<SanityEpisode, string>[]>(() => [
     {
-      accessorKey: 'id',
+      accessorKey: 'episode_number',
       header: ({column}) => defaultPlainColumn(column, "#"),
       enableColumnFilter: false
     },
@@ -47,7 +46,7 @@ export default function AllEpisodesTable({episodes}: {episodes: Episode[]}) {
       accessorKey: 'title',
       header: ({column}) => defaultSortColumn(column, "Title"),
       cell: ({row, getValue}) => (
-        <strong><Link href={`/episodes/${row.original.id}`} target="_blank">{getValue()}</Link></strong>
+        <strong><Link href={`/episodes/${row.original.slug?.current}`} target="_blank">{getValue()}</Link></strong>
       )
     },
     {
@@ -84,7 +83,7 @@ export default function AllEpisodesTable({episodes}: {episodes: Episode[]}) {
     });
   }, []);
 
-  const table = useReactTable<Episode>({
+  const table = useReactTable<SanityEpisode>({
     data: episodes,
     columns,
     state: {

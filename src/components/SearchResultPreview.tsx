@@ -1,4 +1,4 @@
-import {EpisodeWithHighlight} from "@/utils/types";
+import {SanityEpisodeWithHighlight} from "@/utils/types";
 import {useEffect, useState} from "react";
 
 const MAX_PREVIEW_LINES = 3;
@@ -22,12 +22,12 @@ function parseMatchedChunk(matchedChunk: string): string {
  * @param episode
  * @constructor
  */
-export default function SearchResultPreview({episode}: { episode: EpisodeWithHighlight }) {
+export default function SearchResultPreview({episode}: { episode: SanityEpisodeWithHighlight}) {
   const [highlightedSnippets, setHighlightedSnippets] = useState<string[]>([]);
 
   useEffect(() => {
     if (episode.highlight?.script) {
-      const chunks = episode.highlight.script[0].split("<br />");
+      const chunks = episode.highlight.script[0].split("\n\n");
       setHighlightedSnippets(
         chunks.filter(chunk => chunk.includes(HIGHLIGHT_TAG_START))
           .slice(0, MAX_PREVIEW_LINES)

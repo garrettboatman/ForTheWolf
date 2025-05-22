@@ -1,37 +1,32 @@
-import { Episode } from "@/utils/types";
-import { fetchAllEpisodes } from "@/utils/episodeData";
 import ScribeLink from "@/components/ScribeLink";
 import Link from "next/link";
 import VideoEmbed from "@/components/VideoEmbed";
+import {client} from "@/utils/sanityClient";
+import {SanityEpisode} from "@/utils/sanity.types";
+import {SanityEpisodeCharacters} from "@/utils/types";
 
-function fetchEpisodeDetails(episodeId: number): Episode | undefined {
-  return fetchAllEpisodes().find((episode) => episode.id === episodeId);
-}
-
-function fetchAllEpisodeIds(): { episodeId: string }[] {
-  return fetchAllEpisodes().map((episode) => ({
-    episodeId: episode.id.toString(),
-  }));
-}
+const EPISODE_QUERY = `*[_type == "episode" && slug.current == $episodeSlug][0]{..., "characters_deref": characters[]->}`;
+const options = {next: {revalidate: 30}};
 
 export async function generateStaticParams() {
-  return fetchAllEpisodeIds();
+  const episodes = await client.fetch<SanityEpisode[]>(`*[_type == "episode"]{slug}`)
+  return episodes
+    .filter(ep => !!ep.slug)
+    .map(ep => ({
+      episodeSlug: ep.slug!.current
+    }));
 }
 
-export default async function EpisodeDetailPage({
-  params,
-}: {
-  params: Promise<{ episodeId: string }>;
+export default async function EpisodeDetailPage({params}: {
+  params: Promise<{ episodeSlug: string }>;
 }) {
-  const { episodeId } = await params;
-  const episode = fetchEpisodeDetails(parseInt(episodeId)) as Episode & {
-    script: string;
-  };
+  const {episodeSlug} = await params;
+  const episode = await client.fetch<SanityEpisodeCharacters>(EPISODE_QUERY, await params, options);
 
   if (!episode) {
     return (
       <div className="border-2 p-2 rounded-md">
-        No episode with id=<i>{episodeId}</i>
+        No episode with slug=<i>{episodeSlug}</i>
       </div>
     );
   }
@@ -51,7 +46,7 @@ export default async function EpisodeDetailPage({
       </div>
       <div className="my-8">
         <p className="text-2xl lg:text-3xl font-semibold">{episode.title}</p>
-        <p className="text-lg lg:text-xl">Episode ID: {episode.id}</p>
+        <p className="text-lg lg:text-xl">Episode ID: {episode.episode_number}</p>
         <p className="text-lg lg:text-xl">Air date: {episode.air_date}</p>
         {/*TODO: youtube link and embed*/}
         <p className="text-lg lg:text-xl">
@@ -59,9 +54,7 @@ export default async function EpisodeDetailPage({
           {
             <a
               href={
-                episode.youtube_id
-                  ? `https://www.youtube.com/watch?v=${episode.youtube_id}`
-                  : episode.alt_embed_src
+                episode.primary_video_link
               }
               className="text-blue-500 underline"
               target="_blank"
@@ -71,7 +64,14 @@ export default async function EpisodeDetailPage({
           }
         </p>
         <p className="text-lg lg:text-xl">
-          Scribe: <ScribeLink scribe={episode.scribe} />
+          Scribe: <ScribeLink scribe={episode.scribe}/>
+        </p>
+        <p className="text-lg lg:text-xl">
+          Characters: {
+          episode.characters_deref?.length > 0 ?
+            episode.characters_deref?.map(c => c.character_name).join(", ") :
+            <i>unknown</i>
+        }
         </p>
       </div>
       <div className="my-8">
@@ -79,8 +79,8 @@ export default async function EpisodeDetailPage({
           video={episode.youtube_id || episode.alt_embed_src}
           isYoutube={!!episode.youtube_id}
         />
-        <div className="border-2 mt-6 p-4 bg-white rounded-md border-gray-600">
-          <span dangerouslySetInnerHTML={{ __html: episode.script }}></span>
+        <div className="whitespace-pre-wrap bg-white border-2 mt-6 p-4 rounded-md border-gray-600">
+          {episode.script_text}
         </div>
       </div>
     </div>

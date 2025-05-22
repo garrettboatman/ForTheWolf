@@ -9,20 +9,24 @@ import {
   ReactNode,
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Episode } from "@/utils/types";
 import { usePostHog } from "posthog-js/react";
+import {SanityEpisodeWithHighlight} from "@/utils/types";
+
+// (theoretically) easy switching between legacy "episodes" route and new "episodesWithCMS" route
+// const API_ENDPOINT = "/api/episodes"
+const API_ENDPOINT = "/api/episodesWithCMS"
 
 interface ApiResponse {
   total: number;
   offset: number;
   limit: number;
-  data: (Episode & { highlight?: Record<string, string[]> })[];
+  data: SanityEpisodeWithHighlight[];
 }
 
 interface SearchContextType {
   query: string;
   setQuery: (query: string) => void;
-  results: (Episode & { highlight?: Record<string, string[]> })[];
+  results: SanityEpisodeWithHighlight[];
   isLoading: boolean;
   totalResults: number;
   handleSearch: () => Promise<void>;
@@ -50,7 +54,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<
-    (Episode & { highlight?: Record<string, string[]> })[]
+    SanityEpisodeWithHighlight[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalResults, setTotalResults] = useState(0);
@@ -97,7 +101,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
           console.log("Initial search with limit: 50, offset: 0");
 
-          const response = await fetch(`/api/episodes?${params.toString()}`);
+          const response = await fetch(`${API_ENDPOINT}?${params.toString()}`);
           if (!response.ok) {
             throw new Error(
               `API request failed with status ${response.status}`
@@ -144,7 +148,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
       console.log("New search with limit: 50, offset: 0");
 
       // Fetch from our API route
-      const response = await fetch(`/api/episodes?${params.toString()}`);
+      const response = await fetch(`${API_ENDPOINT}?${params.toString()}`);
 
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
@@ -177,7 +181,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
       console.log(`Loading more with offset: ${newOffset}, limit: 50`);
 
-      const response = await fetch(`/api/episodes?${params.toString()}`);
+      const response = await fetch(`${API_ENDPOINT}?${params.toString()}`);
 
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
