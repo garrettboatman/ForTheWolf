@@ -48,7 +48,6 @@ export default async function EpisodeDetailPage({params}: {
         <p className="text-2xl lg:text-3xl font-semibold">{episode.title}</p>
         <p className="text-lg lg:text-xl">Episode ID: {episode.episode_number}</p>
         <p className="text-lg lg:text-xl">Air date: {episode.air_date}</p>
-        {/*TODO: youtube link and embed*/}
         <p className="text-lg lg:text-xl">
           Video:{" "}
           {
