@@ -109,7 +109,7 @@ export default function AllEpisodesTable({episodes}: {episodes: SanityEpisode[]}
       <h2 className="text-2xl mb-2">Displaying <b>{table.getRowModel().rows.length}</b> results (of {episodes.length} total)</h2>
       <p className="italic mb-2">Click an episode title to see more details in a new tab</p>
       <div className="border rounded-md overflow-hidden">
-        <table className="w-full">
+        <table className="w-full overflow-x-scroll">
           <thead className="bg-gray-100">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
