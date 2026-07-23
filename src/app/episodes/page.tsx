@@ -9,7 +9,8 @@ const POSTS_QUERY = `*[
   && defined(slug.current)
 ]|order(publishedAt desc)[0...1000]{_id, episode_number, title, slug, air_date, duration, scribe}`;
 
-const options = {next: {revalidate: 30}};
+// cache indefinitely; /api/revalidate invalidates the "episode" tag on CMS publish
+const options = {next: {revalidate: false as const, tags: ["episode"]}};
 
 export default async function AllEpisodesPage() {
   const episodes = await client.fetch<SanityEpisode[]>(POSTS_QUERY, {}, options);

@@ -6,7 +6,9 @@ import {SanityEpisode} from "@/utils/sanity.types";
 import {SanityEpisodeCharacters} from "@/utils/types";
 
 const EPISODE_QUERY = `*[_type == "episode" && slug.current == $episodeSlug][0]{..., "characters_deref": characters[]->}`;
-const options = {next: {revalidate: 30}};
+// cache indefinitely; /api/revalidate invalidates these tags on CMS publish.
+// "character" is included because this page dereferences character documents.
+const options = {next: {revalidate: false as const, tags: ["episode", "character"]}};
 
 export async function generateStaticParams() {
   const episodes = await client.fetch<SanityEpisode[]>(`*[_type == "episode"]{slug}`)
