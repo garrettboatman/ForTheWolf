@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "engines": {
-    "node": ">=20.19.0 <21.0.0"
+    "node": ">=22 <25"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^9.0.1",
